@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Кастомна сторінка</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            text-align: center;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 18px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Кастомна сторінка</h1>
+        <button onclick="returnToTelegram()">Вернуться</button>
+    </div>
+
+    <script>
+        function returnToTelegram() {
+            if (window.Telegram.WebApp) {
+                window.Telegram.WebApp.close();
+            } else {
+                alert('Вы не в Telegram Web App');
+            }
+        }
+    </script>
+</body>
+</html>
