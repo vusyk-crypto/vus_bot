@@ -10,6 +10,8 @@
             text-align: center;
             margin: 0;
             padding: 0;
+            background-color: #1a1a1a; /* Фон зроблений темним для контрасту */
+            color: white;
         }
 
         #top-menu {
@@ -30,7 +32,7 @@
         }
 
         #logo {
-            margin-top: 70px; /* Добавил отступ из-за верхнего меню */
+            margin-top: 70px; /* Отступ сверху из-за верхнего меню */
             width: 150px;
             height: 150px;
         }
@@ -38,13 +40,18 @@
         #username {
             font-size: 20px;
             margin-top: 20px;
+            color: lightgray; /* Світло-сірий колір для нікнейму */
         }
 
-        #balance {
+        #balance-section {
             font-size: 24px;
             font-weight: bold;
             margin-top: 10px;
-            display: none; /* Скрываем баланс до нажатия кнопки */
+            display: none; /* Баланс та повідомлення про отримання будуть приховані до натискання кнопки */
+        }
+
+        #balance-section span {
+            color: white; /* Білий колір для тексту "Ви отримали" та балансу */
         }
 
         #get-coins-btn {
@@ -93,7 +100,10 @@
 
     <img id="logo" src="vus.png" alt="VUS Logo">
     <div id="username">USERNAME_PLACEHOLDER</div>
-    <div id="balance">VUS 200.00</div>
+
+    <div id="balance-section">
+        <span>Ви отримали</span> <span id="balance">VUS 200.00</span>
+    </div>
 
     <button id="get-coins-btn">Отримати монети</button>
 
@@ -106,15 +116,14 @@
 
     <script>
         document.getElementById('get-coins-btn').addEventListener('click', function () {
-            // Симуляция добавления монет в реальном времени
-            let balanceElem = document.getElementById('balance');
-            balanceElem.textContent = 'VUS 200.00';
-            balanceElem.style.display = 'block';  // Показываем баланс
+            // Показуємо повідомлення та баланс
+            let balanceSection = document.getElementById('balance-section');
+            balanceSection.style.display = 'block';  // Показуємо баланс
 
-            // Ховаем кнопку после нажатия
+            // Сховуємо кнопку після натискання
             document.getElementById('get-coins-btn').style.display = 'none';
 
-            // Отправка запроса на сервер для обновления баланса
+            // Відправка запиту на сервер для оновлення балансу
             fetch('/update-balance', {
                 method: 'POST',
                 headers: {
@@ -123,19 +132,16 @@
                 body: JSON.stringify({ newBalance: 200 })
             }).then(response => {
                 if (response.ok) {
-                    console.log('Баланс успешно обновлен');
+                    console.log('Баланс успішно оновлено');
                 } else {
-                    console.error('Ошибка обновления баланса');
+                    console.error('Помилка оновлення балансу');
                 }
             });
         });
 
-        // Замена текста с никнеймом пользователя, если доступен Telegram WebApp
-        if (window.Telegram.WebApp.initDataUnsafe && window.Telegram.WebApp.initDataUnsafe.user) {
-            document.getElementById('username').textContent = window.Telegram.WebApp.initDataUnsafe.user.username;
-        } else {
-            document.getElementById('username').textContent = "USERNAME_PLACEHOLDER"; // Если никнейм не доступен
-        }
+        // Замінюємо текст з нікнеймом користувача
+        const username = window.Telegram.WebApp.initDataUnsafe?.user?.username || 'USERNAME_PLACEHOLDER';
+        document.getElementById('username').textContent = username; // Підставляємо реальний нікнейм користувача
     </script>
 
 </body>
