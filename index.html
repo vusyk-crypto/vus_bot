@@ -10,7 +10,7 @@
             text-align: center;
             margin: 0;
             padding: 0;
-            background-color: #1a1a1a; /* Фон зроблений темним для контрасту */
+            background-color: #1a1a1a; /* Темний фон */
             color: white;
         }
 
@@ -32,7 +32,7 @@
         }
 
         #logo {
-            margin-top: 70px; /* Отступ сверху из-за верхнего меню */
+            margin-top: 70px; /* Відступ через верхнє меню */
             width: 150px;
             height: 150px;
         }
@@ -47,11 +47,11 @@
             font-size: 24px;
             font-weight: bold;
             margin-top: 10px;
-            display: none; /* Баланс та повідомлення про отримання будуть приховані до натискання кнопки */
+            display: none; /* Сховано, доки не натиснуто кнопку */
         }
 
         #balance-section span {
-            color: white; /* Білий колір для тексту "Ви отримали" та балансу */
+            color: white; /* Білий текст */
         }
 
         #get-coins-btn {
@@ -140,7 +140,8 @@
         });
 
         // Замінюємо текст з нікнеймом користувача
-        const username = window.Telegram.WebApp.initDataUnsafe?.user?.username || 'USERNAME_PLACEHOLDER';
+        const tg = window.Telegram.WebApp;
+        const username = tg.initDataUnsafe?.user?.username || 'USERNAME_PLACEHOLDER';
         document.getElementById('username').textContent = username; // Підставляємо реальний нікнейм користувача
     </script>
 
