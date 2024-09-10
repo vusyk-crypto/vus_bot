@@ -12,8 +12,25 @@
             padding: 0;
         }
 
+        #top-menu {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: #f1f1f1;
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        #top-menu a {
+            font-size: 18px;
+            text-decoration: none;
+            color: black;
+        }
+
         #logo {
-            margin-top: 50px;
+            margin-top: 70px; /* Добавил отступ из-за верхнего меню */
             width: 150px;
             height: 150px;
         }
@@ -27,7 +44,7 @@
             font-size: 24px;
             font-weight: bold;
             margin-top: 10px;
-            display: none; /* По умолчанию не отображаем баланс */
+            display: none; /* Скрываем баланс до нажатия кнопки */
         }
 
         #get-coins-btn {
@@ -68,9 +85,15 @@
 </head>
 <body>
 
+    <div id="top-menu">
+        <a href="#">Закрити</a>
+        <span>VUS</span>
+        <a href="#">Про проект</a>
+    </div>
+
     <img id="logo" src="vus.png" alt="VUS Logo">
-    <div id="username">USERNAME_PLACEHOLDER</div> <!-- Это будет заменено на реальный никнейм -->
-    <div id="balance">VUS 200.00</div> <!-- Баланс сначала скрыт, появляется после получения монет -->
+    <div id="username">USERNAME_PLACEHOLDER</div>
+    <div id="balance">VUS 200.00</div>
 
     <button id="get-coins-btn">Отримати монети</button>
 
@@ -91,14 +114,31 @@
             // Ховаем кнопку после нажатия
             document.getElementById('get-coins-btn').style.display = 'none';
 
-            // Отправка запроса на сервер (бота) для обновления баланса
-            Telegram.WebApp.sendData("add_coins");
+            // Отправка запроса на сервер для обновления баланса
+            fetch('/update-balance', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ newBalance: 200 })
+            }).then(response => {
+                if (response.ok) {
+                    console.log('Баланс успешно обновлен');
+                } else {
+                    console.error('Ошибка обновления баланса');
+                }
+            });
         });
 
-        // Замена текста с никнеймом пользователя, предполагая, что он передается из Telegram
-        document.getElementById('username').textContent = Telegram.WebApp.initDataUnsafe.user.username || "USERNAME_PLACEHOLDER";
+        // Замена текста с никнеймом пользователя, если доступен Telegram WebApp
+        if (window.Telegram.WebApp.initDataUnsafe && window.Telegram.WebApp.initDataUnsafe.user) {
+            document.getElementById('username').textContent = window.Telegram.WebApp.initDataUnsafe.user.username;
+        } else {
+            document.getElementById('username').textContent = "USERNAME_PLACEHOLDER"; // Если никнейм не доступен
+        }
     </script>
 
 </body>
 </html>
+
 
