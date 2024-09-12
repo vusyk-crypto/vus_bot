@@ -119,46 +119,44 @@
     </nav>
 
     <script>
-        document.getElementById('get-coins-btn').addEventListener('click', function () {
-            let balanceSection = document.getElementById('balance-section');
-            let balanceElement = document.getElementById('balance');
-            balanceSection.style.display = 'block';
-            document.getElementById('get-coins-btn').style.display = 'none';
+    document.getElementById('get-coins-btn').addEventListener('click', function () {
+        let balanceSection = document.getElementById('balance-section');
+        let balanceElement = document.getElementById('balance');
+        balanceSection.style.display = 'block';
+        document.getElementById('get-coins-btn').style.display = 'none';
 
-            let startTime = Date.now();
-            let duration = 1000; // 1 second
-            let targetBalance = 200;
+        let startTime = Date.now();
+        let duration = 1000; // 1 second
+        let targetBalance = 200;
 
-            function updateBalance() {
-                let currentTime = Date.now();
-                let elapsedTime = currentTime - startTime;
-                
-                if (elapsedTime < duration) {
-                    let progress = elapsedTime / duration;
-                    let currentBalance = Math.round(progress * targetBalance);
-                    balanceElement.textContent = currentBalance;
-                    requestAnimationFrame(updateBalance);
-                } else {
-                    balanceElement.textContent = targetBalance;
-                    console.log('Баланс успішно оновлено');
-                }
+        function updateBalance() {
+            let currentTime = Date.now();
+            let elapsedTime = currentTime - startTime;
+            
+            if (elapsedTime < duration) {
+                let progress = elapsedTime / duration;
+                let currentBalance = Math.round(progress * targetBalance);
+                balanceElement.textContent = currentBalance;
+                requestAnimationFrame(updateBalance);
+            } else {
+                balanceElement.textContent = targetBalance;
+                console.log('Баланс успішно оновлено');
             }
-			});
+        }
 
-            updateBalance();
-			
-			document.getElementById('close-btn').addEventListener('click', function() {
-       const tg = window.Telegram.WebApp;
-       tg.close();
-        });
+        updateBalance();  // Важливо викликати updateBalance тут
+    });
 
-        //const tg = window.Telegram.WebApp;
-        const urlParams = new URLSearchParams(window.location.search);
-        const username = urlParams.get('username') || 'Гість';
-        document.getElementById('username').textContent = username;
-		
-		
-    </script>
+    document.getElementById('close-btn').addEventListener('click', function() {
+        const tg = window.Telegram.WebApp;
+        tg.close();
+    });
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const username = urlParams.get('username') || 'Гість';
+    document.getElementById('username').textContent = username;
+</script>
+
 
 </body>
 </html>
