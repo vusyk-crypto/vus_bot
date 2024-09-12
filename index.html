@@ -137,6 +137,25 @@
     nav a.active img {
         filter: invert(35%) sepia(100%) saturate(600%) hue-rotate(180deg) brightness(95%) contrast(85%);
     }
+	
+	#balance-section span {
+    color: #333333; /* Темно-сірий колір для "VUS 200" */
+    font-size: 24px;
+    font-weight: bold;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.3); /* Збільшуємо текст */
+    }
+    100% {
+        transform: scale(1); /* Повертаємо до нормального розміру */
+    }
+}
+
 </style>
 
 
@@ -197,13 +216,13 @@
 
 
 <script>
-
- // Дождаться полной загрузки документа
+    // Дождаться полной загрузки документа
     document.addEventListener("DOMContentLoaded", function() {
         const imgUrl = "vus.png?timestamp=" + new Date().getTime();
         document.getElementById("logo").src = imgUrl; // Присваиваем новое значение src для логотипа
     });
-    // Логіка для кнопки "Отримати монети"
+
+    // Логика для кнопки "Отримати монети"
     document.getElementById('get-coins-btn').addEventListener('click', function () {
         let balanceSection = document.getElementById('balance-section');
         let balanceElement = document.getElementById('balance');
@@ -226,6 +245,9 @@
             } else {
                 balanceElement.textContent = targetBalance;
                 console.log('Баланс успішно оновлено');
+                
+                // Додаємо анімацію після зупинки на 200
+                balanceElement.style.animation = 'pulse 1s ease-in-out';
             }
         }
 
@@ -247,6 +269,7 @@
     const username = urlParams.get('username') || 'Гість';
     document.getElementById('username').textContent = username;
 </script>
+
 
 
 
