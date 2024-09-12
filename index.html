@@ -90,19 +90,22 @@
     }
 
     #get-coins-btn {
-        margin-top: 20px;
-        padding: 10px 20px; /* Ширина кнопки остаётся как была */
-        background-color: #007bff;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        font-size: 16px;
-        cursor: pointer;
-    }
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    width: auto; /* Вернули автоширину */
+    display: inline-block; /* Чтобы кнопка занимала только нужную ширину */
+}
 
-    #get-coins-btn:hover {
-        background-color: #0056b3;
-    }
+#get-coins-btn:hover {
+    background-color: #0056b3;
+}
+
 
     nav {
         position: fixed;
