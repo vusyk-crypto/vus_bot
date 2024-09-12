@@ -168,6 +168,12 @@
 
 
 <script>
+
+ // Дождаться полной загрузки документа
+    document.addEventListener("DOMContentLoaded", function() {
+        const imgUrl = "vus.png?timestamp=" + new Date().getTime();
+        document.getElementById("logo").src = imgUrl; // Присваиваем новое значение src для логотипа
+    });
     // Логіка для кнопки "Отримати монети"
     document.getElementById('get-coins-btn').addEventListener('click', function () {
         let balanceSection = document.getElementById('balance-section');
