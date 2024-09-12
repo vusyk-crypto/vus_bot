@@ -5,120 +5,133 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VUS Project</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin: 0;
-            padding: 0;
-            background-color: #f0f0f0;
-            color: black;
-        }
+    body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        margin: 0;
+        padding: 0;
+        background-color: #f0f0f0;
+        color: black;
+        display: flex;
+        flex-direction: column;
+        justify-content: center; /* Центрируем содержимое по вертикали */
+        height: 100vh; /* Задаём высоту в 100% видимой области */
+    }
 
-        #top-menu {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background-color: #f0f0f0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 0;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
+    #top-menu {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        background-color: #f0f0f0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 0;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+    }
 
-        #top-menu a {
-            font-size: 18px;
-            text-decoration: none;
-            color: black;
-            padding: 0 20px;
-        }
+    #top-menu a {
+        font-size: 18px;
+        text-decoration: none;
+        color: black;
+        padding: 0 20px;
+    }
 
-#logo-container {
-    width: 150px; /* Фиксированный размер контейнера */
-    height: 150px;
-    padding: 1.5px; /* Толщина синей обводки */
-    background-color: #007bff; /* Цвет обводки */
-    border-radius: 50%; /* Круглая обводка */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0 auto;
-    margin-top: 70px;
-}
+    #top-menu div {
+        flex-grow: 1;
+        text-align: center;
+    }
 
-#logo {
-    width: 100%; /* Лого будет идеально вписываться в контейнер */
-    height: 100%;
-    border-radius: 50%; /* Лого тоже круглое */
-    object-fit: cover; /* Заполняет контейнер */
-}
+    #top-menu strong {
+        font-size: 24px; /* Увеличиваем шрифт для VUS */
+    }
 
+    #top-menu span {
+        font-size: 8px; /* Трёхкратно уменьшенный шрифт для "Про проєкт" */
+        color: #808080; /* Серый цвет */
+    }
 
+    #logo-container {
+        width: 150px; /* Фиксированный размер контейнера */
+        height: 150px;
+        padding: 1.5px; /* Тонкая обводка */
+        background-color: #007bff; /* Синий цвет обводки */
+        border-radius: 50%; /* Круглая обводка */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0 auto;
+        margin-bottom: 20px; /* Для отступа ниже */
+    }
 
+    #logo {
+        width: 100%; /* Лого будет идеально вписываться в контейнер */
+        height: 100%;
+        border-radius: 50%; /* Лого тоже круглое */
+        object-fit: cover; /* Заполняет контейнер */
+    }
 
+    #username {
+        font-size: 20px;
+        margin-top: 20px;
+        color: #333;
+    }
 
+    #balance-section {
+        font-size: 24px;
+        font-weight: bold;
+        margin-top: 10px;
+        display: none;
+    }
 
+    #balance-section span {
+        color: #333;
+    }
 
+    #get-coins-btn {
+        margin-top: 20px;
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+    }
 
-        #username {
-            font-size: 20px;
-            margin-top: 20px;
-            color: #333;
-        }
+    #get-coins-btn:hover {
+        background-color: #0056b3;
+    }
 
-        #balance-section {
-            font-size: 24px;
-            font-weight: bold;
-            margin-top: 10px;
-            display: none;
-        }
+    nav {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        background-color: #ffffff;
+        display: flex;
+        justify-content: space-around;
+        padding: 10px 0;
+        box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+    }
 
-        #balance-section span {
-            color: #333;
-        }
+    nav a {
+        text-decoration: none;
+        color: black;
+        font-size: 18px;
+        display: block;
+    }
 
-        #get-coins-btn {
-            margin-top: 20px;
-            padding: 10px 20px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            font-size: 16px;
-            cursor: pointer;
-        }
+    nav a.active {
+        color: #007bff;
+    }
 
-        #get-coins-btn:hover {
-            background-color: #0056b3;
-        }
+    nav a.active img {
+        filter: invert(35%) sepia(100%) saturate(600%) hue-rotate(180deg) brightness(95%) contrast(85%);
+    }
+</style>
 
-        nav {
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-            background-color: #ffffff;
-            display: flex;
-            justify-content: space-around;
-            padding: 10px 0;
-            box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
-			z-index: 1000;
-        }
-
-        nav a {
-            text-decoration: none;
-            color: black;
-            font-size: 18px;
-        }
-
-        nav a.active {
-            color: #007bff;
-        }
-		nav a.active img {
-            filter: invert(35%) sepia(100%) saturate(600%) hue-rotate(180deg) brightness(95%) contrast(85%);
-        }
-
-
-    </style>
 </head>
 <body>
 
@@ -129,7 +142,7 @@
     <div style="flex-grow: 1; text-align: center;">
         <strong style="font-size: 24px;">VUS</strong> <!-- Увеличенный шрифт для VUS -->
         <br>
-        <span style="font-size: 8px; color: #808080;">Про проєкт</span> <!-- Маленький серый текст -->
+        <span style="font-size: 16px; color: #808080;">Про проєкт</span> <!-- Маленький серый текст -->
     </div>
     <a href="#" style="text-decoration: none; text-align: center;">
         <img src="three-dots.png" alt="Про проект" style="width: 24px; height: 24px;">
