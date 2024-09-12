@@ -34,25 +34,24 @@
         }
 
 #logo-container {
-    width: 150px; /* Точный размер контейнера с обводкой */
+    width: 150px; /* Размер контейнера соответствует размеру лого */
     height: 150px;
-    border: 5px solid #007bff; /* Синяя обводка */
+    padding: 5px; /* Размер обводки */
+    background-color: #007bff; /* Синий цвет обводки */
     border-radius: 50%; /* Круглая обводка */
     display: flex;
     justify-content: center;
     align-items: center;
     margin: 0 auto;
     margin-top: 70px;
-    box-sizing: border-box; /* Учёт обводки в размерах */
-    overflow: hidden; /* На случай, если что-то вылезет за границы */
 }
 
 #logo {
-    width: 100%; /* Логотип заполняет весь контейнер */
-    height: 100%; /* Соотношение сохраняется */
-    object-fit: cover; /* Лого сохраняет пропорции */
-    border-radius: 50%; /* Круглый логотип */
+    width: 140px; /* Лого немного меньше для учёта обводки */
+    height: 140px;
+    border-radius: 50%; /* Делаем логотип круглым */
 }
+
 
 
 
