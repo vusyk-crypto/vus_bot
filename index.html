@@ -101,7 +101,7 @@
                 transform: scale(1);
             }
             50% {
-                transform: scale(1.3);
+                transform: scale(1.6);
             }
             100% {
                 transform: scale(1);
@@ -247,6 +247,10 @@
                     
                     // Додаємо клас анімації
                     balanceElement.classList.add('animate-pulse');
+					// Змінюємо колір на сірий після завершення анімації
+                    setTimeout(() => {
+                        balanceElement.style.color = '#808080'; // Сірий колір
+                    }, 1000); // Чекаємо 1 секунду (тривалість анімації)
                 }
             }
 
