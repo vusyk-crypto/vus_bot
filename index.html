@@ -80,6 +80,7 @@
             justify-content: space-around;
             padding: 10px 0;
             box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+			z-index: 1000;
         }
 
         nav a {
@@ -146,8 +147,9 @@
             updateBalance();
         });
 
-        const tg = window.Telegram.WebApp;
-        const username = tg.initDataUnsafe?.user?.username || 'Гость';
+        <!--const tg = window.Telegram.WebApp;-->
+        const urlParams = new URLSearchParams(window.location.search);
+        const username = urlParams.get('username') || 'Гість';
         document.getElementById('username').textContent = username;
     </script>
 

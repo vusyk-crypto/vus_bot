@@ -13,6 +13,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     logging.info(f"Отправляю пользователя {username} на кастомную страницу")
 
     # Создаем кнопку с переходом на кастомную страницу через Telegram WebApp
+    web_app_url = f"https://vusyk-crypto.github.io/vus_bot/?username={username}"
     button = InlineKeyboardButton(text="Вперед", 
                                   web_app=WebAppInfo(url="https://vusyk-crypto.github.io/vus_bot/"))
     keyboard = InlineKeyboardMarkup([[button]])
