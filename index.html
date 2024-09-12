@@ -92,6 +92,10 @@
         nav a.active {
             color: #007bff;
         }
+		nav a.active img {
+            filter: hue-rotate(180deg) brightness(1.5); /* Это сделает иконку синей */
+        }
+
     </style>
 </head>
 <body>
@@ -118,25 +122,25 @@
     <button id="get-coins-btn">Отримати монети</button>
 
 <nav style="text-align: center;">
-    <a href="#" class="active" style="display: block; text-decoration: none;">
-        Home
-        <br>
+    <a href="#" class="active" style="display: block; text-decoration: none; color: #007bff;">
         <img src="home.png" alt="Home" style="width: 24px; height: 24px;">
+        <br>
+        Home
     </a>
     <a href="#" style="display: block; text-decoration: none;">
-        Tasks
-        <br>
         <img src="tasks.png" alt="Tasks" style="width: 24px; height: 24px;">
+        <br>
+        Tasks
     </a>
     <a href="#" style="display: block; text-decoration: none;">
-        Friends
-        <br>
         <img src="friends.png" alt="Friends" style="width: 24px; height: 24px;">
+        <br>
+        Friends
     </a>
     <a href="#" style="display: block; text-decoration: none;">
-        NFT
-        <br>
         <img src="nft.png" alt="NFT" style="width: 24px; height: 24px;">
+        <br>
+        NFT
     </a>
 </nav>
 
