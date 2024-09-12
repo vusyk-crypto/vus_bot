@@ -10,18 +10,19 @@
             text-align: center;
             margin: 0;
             padding: 0;
-            background-color: #1a1a1a; /* Темний фон */
-            color: white;
+            background-color: #f0f0f0;
+            color: black;
         }
 
         #top-menu {
             position: fixed;
             top: 0;
             width: 100%;
-            background-color: #f1f1f1;
+            background-color: #f0f0f0;
             display: flex;
             justify-content: space-between;
-            padding: 10px 20px;
+            align-items: center;
+            padding: 10px 0;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
 
@@ -29,10 +30,11 @@
             font-size: 18px;
             text-decoration: none;
             color: black;
+            padding: 0 20px;
         }
 
         #logo {
-            margin-top: 70px; /* Відступ через верхнє меню */
+            margin-top: 70px;
             width: 150px;
             height: 150px;
         }
@@ -40,18 +42,18 @@
         #username {
             font-size: 20px;
             margin-top: 20px;
-            color: lightgray; /* Світло-сірий колір для нікнейму */
+            color: #333;
         }
 
         #balance-section {
             font-size: 24px;
             font-weight: bold;
             margin-top: 10px;
-            display: none; /* Сховано, доки не натиснуто кнопку */
+            display: none;
         }
 
         #balance-section span {
-            color: white; /* Білий текст */
+            color: #333;
         }
 
         #get-coins-btn {
@@ -73,10 +75,11 @@
             position: fixed;
             bottom: 0;
             width: 100%;
-            background-color: #f1f1f1;
+            background-color: #ffffff;
             display: flex;
             justify-content: space-around;
             padding: 10px 0;
+            box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
         }
 
         nav a {
@@ -94,15 +97,15 @@
 
     <div id="top-menu">
         <a href="#">Закрити</a>
-        <span>VUS</span>
+        <span style="flex-grow: 1; text-align: center;">VUS</span>
         <a href="#">Про проект</a>
     </div>
 
     <img id="logo" src="vus.png" alt="VUS Logo">
-    <div id="username">USERNAME_PLACEHOLDER</div>
+    <div id="username"></div>
 
     <div id="balance-section">
-        <span>Ви отримали</span> <span id="balance">VUS 200.00</span>
+        <span>Ви отримали VUS </span><span id="balance">0</span>
     </div>
 
     <button id="get-coins-btn">Отримати монети</button>
@@ -116,36 +119,37 @@
 
     <script>
         document.getElementById('get-coins-btn').addEventListener('click', function () {
-            // Показуємо повідомлення та баланс
             let balanceSection = document.getElementById('balance-section');
-            balanceSection.style.display = 'block';  // Показуємо баланс
-
-            // Сховуємо кнопку після натискання
+            let balanceElement = document.getElementById('balance');
+            balanceSection.style.display = 'block';
             document.getElementById('get-coins-btn').style.display = 'none';
 
-            // Відправка запиту на сервер для оновлення балансу
-            fetch('/update-balance', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ newBalance: 200 })
-            }).then(response => {
-                if (response.ok) {
-                    console.log('Баланс успішно оновлено');
+            let startTime = Date.now();
+            let duration = 1000; // 1 second
+            let targetBalance = 200;
+
+            function updateBalance() {
+                let currentTime = Date.now();
+                let elapsedTime = currentTime - startTime;
+                
+                if (elapsedTime < duration) {
+                    let progress = elapsedTime / duration;
+                    let currentBalance = Math.round(progress * targetBalance);
+                    balanceElement.textContent = currentBalance;
+                    requestAnimationFrame(updateBalance);
                 } else {
-                    console.error('Помилка оновлення балансу');
+                    balanceElement.textContent = targetBalance;
+                    console.log('Баланс успішно оновлено');
                 }
-            });
+            }
+
+            updateBalance();
         });
 
-        // Замінюємо текст з нікнеймом користувача
         const tg = window.Telegram.WebApp;
-        const username = tg.initDataUnsafe?.user?.username || 'USERNAME_PLACEHOLDER';
-        document.getElementById('username').textContent = username; // Підставляємо реальний нікнейм користувача
+        const username = tg.initDataUnsafe?.user?.username || 'Гость';
+        document.getElementById('username').textContent = username;
     </script>
 
 </body>
 </html>
-
-
