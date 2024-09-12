@@ -97,7 +97,7 @@
 <body>
 
     <div id="top-menu">
-        <a href="#">Закрити</a>
+        <a href="#" id="close-btn">Закрити</a>
         <span style="flex-grow: 1; text-align: center;">VUS</span>
         <a href="#">Про проект</a>
     </div>
@@ -143,14 +143,21 @@
                     console.log('Баланс успішно оновлено');
                 }
             }
+			});
 
             updateBalance();
+			
+			document.getElementById('close-btn').addEventListener('click', function() {
+       const tg = window.Telegram.WebApp;
+       tg.close();
         });
 
         //const tg = window.Telegram.WebApp;
         const urlParams = new URLSearchParams(window.location.search);
         const username = urlParams.get('username') || 'Гість';
         document.getElementById('username').textContent = username;
+		
+		
     </script>
 
 </body>
