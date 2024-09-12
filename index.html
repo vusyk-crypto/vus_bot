@@ -118,7 +118,8 @@
         <a href="#">NFT</a>
     </nav>
 
-    <script>
+<script>
+    // Логіка для кнопки "Отримати монети"
     document.getElementById('get-coins-btn').addEventListener('click', function () {
         let balanceSection = document.getElementById('balance-section');
         let balanceElement = document.getElementById('balance');
@@ -146,7 +147,23 @@
 
         updateBalance();  // Виклик функції для оновлення балансу
     });
+
+    // Логіка для кнопки "Закрити"
+    document.getElementById('close-btn').addEventListener('click', function() {
+        const tg = window.Telegram.WebApp;
+        if (tg) {
+            tg.close();  // Закриває WebApp, якщо API Telegram доступний
+        } else {
+            console.log('Telegram WebApp не ініціалізований або викликається не з Telegram.');
+        }
+    });
+
+    // Отримання параметра username із URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const username = urlParams.get('username') || 'Гість';
+    document.getElementById('username').textContent = username;
 </script>
+
 
 
 
