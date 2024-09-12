@@ -4,184 +4,172 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VUS Project</title>
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        text-align: center;
-        margin: 0;
-        padding: 0;
-        background-color: #f0f0f0;
-        color: black;
-        display: flex;
-        flex-direction: column;
-        justify-content: center; /* Центрируем содержимое по вертикали */
-        height: 100vh; /* Задаём высоту в 100% видимой области */
-    }
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+            color: black;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 100vh;
+        }
 
-    #top-menu {
-        position: fixed;
-        top: 0;
-        width: 100%;
-        background-color: #f0f0f0;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 10px 0;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        z-index: 1000;
-    }
+        #top-menu {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
 
-    #top-menu a {
-        font-size: 18px;
-        text-decoration: none;
-        color: black;
-        padding: 0 20px;
-    }
+        #top-menu a {
+            font-size: 18px;
+            text-decoration: none;
+            color: black;
+            padding: 0 20px;
+        }
 
-    #top-menu div {
-        flex-grow: 1;
-        text-align: center;
-    }
+        #top-menu div {
+            flex-grow: 1;
+            text-align: center;
+        }
 
-    #top-menu strong {
-        font-size: 24px; /* Увеличиваем шрифт для VUS */
-    }
+        #top-menu strong {
+            font-size: 24px;
+        }
 
-    #top-menu span {
-        font-size: 8px; /* Трёхкратно уменьшенный шрифт для "Про проєкт" */
-        color: #808080; /* Серый цвет */
-    }
+        #top-menu span {
+            font-size: 16px;
+            color: #808080;
+        }
 
-    #logo-container {
-        width: 150px; /* Фиксированный размер контейнера */
-        height: 150px;
-        padding: 1.5px; /* Тонкая обводка */
-        background-color: #007bff; /* Синий цвет обводки */
-        border-radius: 50%; /* Круглая обводка */
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin: 0 auto;
-        margin-bottom: 30px; /* Увеличиваем отступ между лого и никнеймом */
-    }
+        #logo-container {
+            width: 150px;
+            height: 150px;
+            padding: 1.5px;
+            background-color: #007bff;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto;
+            margin-bottom: 30px;
+        }
 
-    #logo {
-        width: 100%; /* Лого будет идеально вписываться в контейнер */
-        height: 100%;
-        border-radius: 50%; /* Лого тоже круглое */
-        object-fit: cover; /* Заполняет контейнер */
-    }
+        #logo {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+        }
 
-    #username {
-        font-size: 20px;
-        margin-top: 10px; /* Увеличиваем отступ между логотипом и никнеймом */
-        color: #333;
-    }
+        #username {
+            font-size: 20px;
+            margin-top: 10px;
+            color: #333;
+        }
 
-    #balance-section {
-        font-size: 24px;
-        font-weight: bold;
-        margin-top: 10px;
-        display: none;
-    }
+        #balance-section {
+            font-size: 24px;
+            font-weight: bold;
+            margin-top: 10px;
+            display: none;
+        }
 
-    #balance-section span {
-        color: #333;
-    }
+        #balance {
+            color: #333333;
+            font-size: 24px;
+            font-weight: bold;
+            display: inline-block;
+        }
 
-    #get-coins-btn {
-    margin-top: 20px;
-    padding: 10px 20px; /* Оставляем прежние отступы */
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-    max-width: 200px; /* Задаём максимальную ширину кнопки */
-    width: fit-content; /* Кнопка будет подстраиваться под содержимое */
-    display: block; /* Это помогает, если нужно центрировать */
-    margin-left: auto;
-    margin-right: auto; /* Центрирование кнопки */
-}
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.3);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
 
-#get-coins-btn:hover {
-    background-color: #0056b3;
-}
+        .animate-pulse {
+            animation: pulse 1s ease-in-out;
+        }
 
+        #get-coins-btn {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            max-width: 200px;
+            width: fit-content;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
 
+        #get-coins-btn:hover {
+            background-color: #0056b3;
+        }
 
-    nav {
-        position: fixed;
-        bottom: 0;
-        width: 100%;
-        background-color: #ffffff;
-        display: flex;
-        justify-content: space-around;
-        padding: 10px 0;
-        box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
-        z-index: 1000;
-    }
+        nav {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: #ffffff;
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
 
-    nav a {
-        text-decoration: none;
-        color: black;
-        font-size: 18px;
-        display: block;
-    }
+        nav a {
+            text-decoration: none;
+            color: black;
+            font-size: 18px;
+            display: block;
+        }
 
-    nav a.active {
-        color: #007bff;
-    }
+        nav a.active {
+            color: #007bff;
+        }
 
-    nav a.active img {
-        filter: invert(35%) sepia(100%) saturate(600%) hue-rotate(180deg) brightness(95%) contrast(85%);
-    }
-	
-	#balance-section span {
-    color: #333333; /* Темно-сірий колір для "VUS 200" */
-    font-size: 24px;
-    font-weight: bold;
-}
-
-@keyframes pulse {
-    0% {
-        transform: scale(1);
-    }
-    50% {
-        transform: scale(1.3); /* Збільшуємо текст */
-    }
-    100% {
-        transform: scale(1); /* Повертаємо до нормального розміру */
-    }
-}
-
-.animate-pulse {
-    animation: pulse 1s ease-in-out;
-}
-
-
-</style>
-
-
+        nav a.active img {
+            filter: invert(35%) sepia(100%) saturate(600%) hue-rotate(180deg) brightness(95%) contrast(85%);
+        }
+    </style>
 </head>
 <body>
-
     <div id="top-menu">
-    <a href="#" id="close-btn" style="text-decoration: none; text-align: center;">
-        <img src="closed.png" alt="Закрити" style="width: 24px; height: 24px;">
-    </a>
-    <div style="flex-grow: 1; text-align: center;">
-        <strong style="font-size: 24px;">VUS</strong> <!-- Увеличенный шрифт для VUS -->
-        <br>
-        <span style="font-size: 16px; color: #808080;">Про проєкт</span> <!-- Маленький серый текст -->
+        <a href="#" id="close-btn" style="text-decoration: none; text-align: center;">
+            <img src="closed.png" alt="Закрити" style="width: 24px; height: 24px;">
+        </a>
+        <div style="flex-grow: 1; text-align: center;">
+            <strong style="font-size: 24px;">VUS</strong>
+            <br>
+            <span style="font-size: 16px; color: #808080;">Про проєкт</span>
+        </div>
+        <a href="#" style="text-decoration: none; text-align: center;">
+            <img src="three-dots.png" alt="Про проект" style="width: 24px; height: 24px;">
+        </a>
     </div>
-    <a href="#" style="text-decoration: none; text-align: center;">
-        <img src="three-dots.png" alt="Про проект" style="width: 24px; height: 24px;">
-    </a>
-    </div>
-
-
 
     <div id="logo-container">
         <img id="logo" src="vus.png" alt="VUS Logo">
@@ -190,96 +178,89 @@
     <div id="username"></div>
 
     <div id="balance-section">
-        <span>Ви отримали VUS </span><span id="balance">0</span>
+        <span>Ви отримали VUS </span><span id="balance">0!</span>
     </div>
 
     <button id="get-coins-btn">Отримати монети</button>
 
-<nav style="text-align: center;">
-    <a href="#" class="active" style="display: block; text-decoration: none; color: #007bff;">
-        <img src="home.png" alt="Home" style="width: 24px; height: 24px;">
-        <br>
-        Home
-    </a>
-    <a href="#" style="display: block; text-decoration: none;">
-        <img src="tasks.png" alt="Tasks" style="width: 24px; height: 24px;">
-        <br>
-        Tasks
-    </a>
-    <a href="#" style="display: block; text-decoration: none;">
-        <img src="friends.png" alt="Friends" style="width: 24px; height: 24px;">
-        <br>
-        Friends
-    </a>
-    <a href="#" style="display: block; text-decoration: none;">
-        <img src="nft.png" alt="NFT" style="width: 24px; height: 24px;">
-        <br>
-        NFT
-    </a>
-</nav>
+    <nav style="text-align: center;">
+        <a href="#" class="active" style="display: block; text-decoration: none; color: #007bff;">
+            <img src="home.png" alt="Home" style="width: 24px; height: 24px;">
+            <br>
+            Home
+        </a>
+        <a href="#" style="display: block; text-decoration: none;">
+            <img src="tasks.png" alt="Tasks" style="width: 24px; height: 24px;">
+            <br>
+            Tasks
+        </a>
+        <a href="#" style="display: block; text-decoration: none;">
+            <img src="friends.png" alt="Friends" style="width: 24px; height: 24px;">
+            <br>
+            Friends
+        </a>
+        <a href="#" style="display: block; text-decoration: none;">
+            <img src="nft.png" alt="NFT" style="width: 24px; height: 24px;">
+            <br>
+            NFT
+        </a>
+    </nav>
 
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const imgUrl = "vus.png?timestamp=" + new Date().getTime();
+            document.getElementById("logo").src = imgUrl;
+        });
 
+        document.getElementById('get-coins-btn').addEventListener('click', function () {
+            let balanceSection = document.getElementById('balance-section');
+            let balanceElement = document.getElementById('balance');
+            balanceSection.style.display = 'block';
+            document.getElementById('get-coins-btn').style.display = 'none';
 
-<script>
-    // Дождаться полной загрузки документа
-    document.addEventListener("DOMContentLoaded", function() {
-        const imgUrl = "vus.png?timestamp=" + new Date().getTime();
-        document.getElementById("logo").src = imgUrl; // Присваиваем новое значение src для логотипа
-    });
+            let startTime = Date.now();
+            let duration = 1000;
+            let targetBalance = 200;
 
-    // Логика для кнопки "Отримати монети"
-    document.getElementById('get-coins-btn').addEventListener('click', function () {
-        let balanceSection = document.getElementById('balance-section');
-        let balanceElement = document.getElementById('balance');
-        balanceSection.style.display = 'block';
-        document.getElementById('get-coins-btn').style.display = 'none';
-
-        let startTime = Date.now();
-        let duration = 1000; // 1 second
-        let targetBalance = 200;
-
-        function updateBalance() {
-            let currentTime = Date.now();
-            let elapsedTime = currentTime - startTime;
-            
-            if (elapsedTime < duration) {
-                let progress = elapsedTime / duration;
-                let currentBalance = Math.round(progress * targetBalance);
-                balanceElement.textContent = currentBalance;
-                requestAnimationFrame(updateBalance);
-            } else {
-                balanceElement.textContent = targetBalance;
-                console.log('Баланс успішно оновлено');
-
-                // Додаємо клас для анімації після досягнення 200
-                balanceElement.classList.add('animate-pulse');
+            function updateBalance() {
+                let currentTime = Date.now();
+                let elapsedTime = currentTime - startTime;
+                
+                if (elapsedTime < duration) {
+                    let progress = elapsedTime / duration;
+                    let currentBalance = Math.round(progress * targetBalance);
+                    balanceElement.textContent = currentBalance;
+                    requestAnimationFrame(updateBalance);
+                } else {
+                    balanceElement.textContent = targetBalance;
+                    console.log('Баланс успішно оновлено');
+                    
+                    // Видаляємо клас анімації, якщо він вже є
+                    balanceElement.classList.remove('animate-pulse');
+                    
+                    // Форсуємо перерисовку DOM
+                    void balanceElement.offsetWidth;
+                    
+                    // Додаємо клас анімації
+                    balanceElement.classList.add('animate-pulse');
+                }
             }
-        }
 
-        updateBalance();  // Виклик функції для оновлення балансу
-    });
+            updateBalance();
+        });
 
-    // Логика для кнопки "Закрити"
-    document.getElementById('close-btn').addEventListener('click', function() {
-        const tg = window.Telegram.WebApp;
-        if (tg) {
-            tg.close();  // Закриває WebApp, якщо API Telegram доступний
-        } else {
-            console.log('Telegram WebApp не ініціалізований або викликається не з Telegram.');
-        }
-    });
+        document.getElementById('close-btn').addEventListener('click', function() {
+            const tg = window.Telegram.WebApp;
+            if (tg) {
+                tg.close();
+            } else {
+                console.log('Telegram WebApp не ініціалізований або викликається не з Telegram.');
+            }
+        });
 
-    // Отримання параметра username із URL
-    const urlParams = new URLSearchParams(window.location.search);
-    const username = urlParams.get('username') || 'Гість';
-    document.getElementById('username').textContent = username;
-</script>
-
-
-
-
-
-
-
+        const urlParams = new URLSearchParams(window.location.search);
+        const username = urlParams.get('username') || 'Гість';
+        document.getElementById('username').textContent = username;
+    </script>
 </body>
 </html>
