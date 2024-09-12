@@ -119,6 +119,7 @@
     </nav>
 
     <script>
+    // Логіка для кнопки "Отримати монети"
     document.getElementById('get-coins-btn').addEventListener('click', function () {
         let balanceSection = document.getElementById('balance-section');
         let balanceElement = document.getElementById('balance');
@@ -144,18 +145,26 @@
             }
         }
 
-        updateBalance();  // Важливо викликати updateBalance тут
+        updateBalance();  // Виклик функції для оновлення балансу
     });
 
+    // Логіка для кнопки "Закрити"
     document.getElementById('close-btn').addEventListener('click', function() {
         const tg = window.Telegram.WebApp;
-        tg.close();
+        console.log(tg);  // Перевіряємо, чи Telegram WebApp доступний
+        if (tg) {
+            tg.close();  // Закриває WebApp тільки якщо працює в Telegram
+        } else {
+            console.log('Telegram WebApp не ініціалізований');
+        }
     });
 
+    // Отримання параметра username із URL
     const urlParams = new URLSearchParams(window.location.search);
     const username = urlParams.get('username') || 'Гість';
     document.getElementById('username').textContent = username;
 </script>
+
 
 
 </body>
