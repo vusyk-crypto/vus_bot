@@ -91,20 +91,24 @@
 
     #get-coins-btn {
     margin-top: 20px;
-    padding: 10px 20px;
+    padding: 10px 20px; /* Оставляем прежние отступы */
     background-color: #007bff;
     color: white;
     border: none;
     border-radius: 5px;
     font-size: 16px;
     cursor: pointer;
-    width: auto; /* Вернули автоширину */
-    display: inline-block; /* Чтобы кнопка занимала только нужную ширину */
+    max-width: 200px; /* Задаём максимальную ширину кнопки */
+    width: fit-content; /* Кнопка будет подстраиваться под содержимое */
+    display: block; /* Это помогает, если нужно центрировать */
+    margin-left: auto;
+    margin-right: auto; /* Центрирование кнопки */
 }
 
 #get-coins-btn:hover {
     background-color: #0056b3;
 }
+
 
 
     nav {
