@@ -156,6 +156,11 @@
     }
 }
 
+.animate-pulse {
+    animation: pulse 1s ease-in-out;
+}
+
+
 </style>
 
 
@@ -245,16 +250,16 @@
             } else {
                 balanceElement.textContent = targetBalance;
                 console.log('Баланс успішно оновлено');
-                
-                // Додаємо анімацію після зупинки на 200
-                balanceElement.style.animation = 'pulse 1s ease-in-out';
+
+                // Додаємо клас для анімації після досягнення 200
+                balanceElement.classList.add('animate-pulse');
             }
         }
 
         updateBalance();  // Виклик функції для оновлення балансу
     });
 
-    // Логіка для кнопки "Закрити"
+    // Логика для кнопки "Закрити"
     document.getElementById('close-btn').addEventListener('click', function() {
         const tg = window.Telegram.WebApp;
         if (tg) {
@@ -269,6 +274,7 @@
     const username = urlParams.get('username') || 'Гість';
     document.getElementById('username').textContent = username;
 </script>
+
 
 
 
