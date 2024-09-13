@@ -266,13 +266,11 @@
 
   <script>
     document.addEventListener("DOMContentLoaded", function() {
-        const tg = window.Telegram.WebApp;
-
         // Обновляем изображение с логотипом
         const imgUrl = "vus.png?timestamp=" + new Date().getTime();
         document.getElementById("logo").src = imgUrl;
 
-        // Оставляем код для кнопки получения монет БЕЗ ИЗМЕНЕНИЙ
+        // Добавляем обработчик для кнопки получения монет
         document.getElementById('get-coins-btn').addEventListener('click', function () {
             let balanceSection = document.getElementById('balance-section');
             let balanceElement = document.getElementById('balance');
@@ -317,6 +315,7 @@
 
         // Обработчик для кнопки закрытия
         document.getElementById('close-btn').addEventListener('click', function() {
+            const tg = window.Telegram.WebApp;
             if (tg) {
                 tg.close();
             } else {
@@ -329,22 +328,24 @@
         const username = urlParams.get('username') || 'Гість';
         document.getElementById('username').textContent = username;
 
-        // Анимация исчезновения руки при разворачивании Telegram Web App
+        // Анимация исчезновения руки
         var hand = document.getElementById('hand-container');
-
-        // Добавляем событие "expand" для скрытия руки
-        tg.onEvent('expand', function() {
-            console.log("WebApp expanded, скрываем руку");
-            hand.classList.add('hidden'); // Скрываем руку после разворачивания
+        window.addEventListener('scroll', function() {
+            var scrollPosition = window.scrollY || window.pageYOffset;
+            console.log("Позиция прокрутки:", scrollPosition); // Для отладки, выводим текущее значение прокрутки
+            if (scrollPosition > 50) {
+                console.log("Добавляем класс 'hidden'"); // Проверяем, сработало ли условие
+                hand.classList.add('hidden'); // Добавляем класс для скрытия руки
+            }
         });
 
-        // Если WebApp не развернут, показываем руку
-        if (!tg.isExpanded) {
-            hand.classList.remove('hidden');
-        }
-
-        // Запрос на автоматическое разворачивание WebApp, если необходимо
-        tg.expand();
+        window.addEventListener('touchmove', function(event) {
+            console.log("Touchmove detected"); // Для отладки, проверяем, срабатывает ли событие touchmove
+            if (window.scrollY > 50) {
+                console.log("Добавляем класс 'hidden' на мобильных"); // Проверяем, сработало ли условие для touchmove
+                hand.classList.add('hidden'); // Добавляем класс для скрытия руки
+            }
+        });
     });
 </script>
 
