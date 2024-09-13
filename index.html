@@ -52,28 +52,30 @@
             color: #808080;
         }
 
-        #logo-container {
-    width: 100%; /* Ширина 100% от родительского контейнера */
-    max-width: 240px; /* Максимальная ширина */
-    aspect-ratio: 1 / 1; /* Устанавливаем пропорции 1:1 для сохранения формы круга */
-    padding: 2px;
+#logo-container {
+    width: 100%;
+    max-width: 240px;
+    height: auto;
+    padding-top: 100%; /* Сохраняем пропорции 1:1 через padding */
     background: linear-gradient(to right, #007bff, #00d4ff);
     border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    position: relative;
     margin: 0 auto;
     margin-bottom: 10px;
     overflow: hidden;
 }
 
 #logo {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
     border-radius: 50%;
     object-fit: contain;
     transform: scale(1.1);
 }
+
 
         #username {
             font-size: 20px;
