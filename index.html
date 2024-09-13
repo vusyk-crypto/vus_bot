@@ -189,8 +189,11 @@
 }
 
 .hidden {
-    display: none; /* Приховуємо елемент */
+    opacity: 0; /* Изменяем прозрачность до нуля для плавного исчезновения */
+    transition: opacity 0.5s ease-in-out; /* Плавный переход */
+    pointer-events: none; /* Рука больше не будет активна для кликов */
 }
+
 
     </style>
 </head>
@@ -311,15 +314,27 @@
         const username = urlParams.get('username') || 'Гість';
         document.getElementById('username').textContent = username;
 		
-		// Додаємо подію на прокрутку або свайп
+		// Добавляем обработчик события для скроллинга страницы
 window.addEventListener('scroll', function() {
     var hand = document.getElementById('hand-container');
     var scrollPosition = window.scrollY || window.pageYOffset;
-    
-    if (scrollPosition > 50) { // Користувач прокрутив більше ніж на 50px
-        hand.classList.add('hidden'); // Приховуємо руку
+
+    // Если пользователь прокрутил больше 50 пикселей, скрываем руку
+    if (scrollPosition > 50) {
+        hand.classList.add('hidden'); // Добавляем класс для скрытия руки
     }
 });
+
+// Добавляем обработчик свайпа для мобильных устройств
+window.addEventListener('touchmove', function(event) {
+    var hand = document.getElementById('hand-container');
+    
+    // Если свайп происходит и есть прокрутка страницы, скрываем руку
+    if (window.scrollY > 50) {
+        hand.classList.add('hidden'); // Добавляем класс для скрытия руки
+    }
+});
+
 
     </script>
 </body>
