@@ -283,7 +283,7 @@
             hand.classList.add('hidden'); 
         });
 
-        // ОСТАВЛЯЕМ ЛОГИКУ ДЛЯ КНОПКИ "ОТРИМАТИ МОНЕТИ" БЕЗ ИЗМЕНЕНИЙ
+        // ЛОГИКА ДЛЯ КНОПКИ "ОТРИМАТИ МОНЕТИ"
         document.getElementById('get-coins-btn').addEventListener('click', function () {
             let balanceSection = document.getElementById('balance-section');
             let balanceElement = document.getElementById('balance');
@@ -291,8 +291,8 @@
             document.getElementById('get-coins-btn').style.display = 'none';
 
             let startTime = Date.now();
-            let duration = 1000;
-            let targetBalance = 5; // Исправляю на 5 VUS, как ты просил
+            let duration = 1000; // 1 секунда
+            let targetBalance = 5; // Исправлено на 5 VUS
 
             function updateBalance() {
                 let currentTime = Date.now();
@@ -337,6 +337,7 @@
         document.getElementById('username').textContent = username;
     });
 </script>
+
 
 
 
