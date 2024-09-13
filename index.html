@@ -256,140 +256,146 @@
 
   <script>
     document.addEventListener("DOMContentLoaded", function() {
-    let tg = window.Telegram?.WebApp;
-    
-    function waitForWebApp() {
-        return new Promise((resolve) => {
-            if (window.Telegram?.WebApp) {
-                resolve(window.Telegram.WebApp);
-            } else {
-                const checkInterval = setInterval(() => {
-                    if (window.Telegram?.WebApp) {
-                        clearInterval(checkInterval);
-                        resolve(window.Telegram.WebApp);
-                    }
-                }, 100);
-            }
-        });
-    }
+        let tg = window.Telegram?.WebApp;
 
-    const hand = document.getElementById('hand-container');
-    const balanceSection = document.getElementById('balance-section');
-    const balanceElement = document.getElementById('balance');
-    const getCoinsBtn = document.getElementById('get-coins-btn');
-
-    function hideHand() {
-        hand.classList.add('hidden');
-        console.log("Hand hidden");
-    }
-
-    function showHand() {
-        hand.classList.remove('hidden');
-        console.log("Hand shown");
-    }
-
-    function checkWebAppState(webApp) {
-        console.log("Checking WebApp state. isExpanded:", webApp.isExpanded);
-        
-        const viewportHeight = window.innerHeight;
-        const documentHeight = document.documentElement.scrollHeight;
-        console.log("Viewport height:", viewportHeight, "Document height:", documentHeight);
-        
-        setTimeout(() => {
-            console.log("Delayed check. isExpanded:", webApp.isExpanded);
-            if (webApp.isExpanded || viewportHeight >= documentHeight - 10) {
-                hideHand();
-            } else {
-                showHand();
-            }
-        }, 500);
-    }
-
-    const observer = new MutationObserver(() => {
-        if (tg) checkWebAppState(tg);
-    });
-
-    waitForWebApp().then((webApp) => {
-        console.log("WebApp initialized:", webApp);
-        tg = webApp;
-        checkWebAppState(webApp);
-
-        webApp.onEvent('viewportChanged', () => {
-            console.log("Viewport changed. New isExpanded state:", webApp.isExpanded);
-            checkWebAppState(webApp);
-        });
-        
-        observer.observe(document.body, { 
-            attributes: true, 
-            childList: true, 
-            subtree: true 
-        });
-
-        document.getElementById('close-btn').addEventListener('click', function() {
-            console.log("Close button clicked");
-            console.log("WebApp object:", webApp);
-            if (webApp?.close) {
-                console.log("Attempting to close WebApp");
-                webApp.close();
-            } else {
-                console.log('WebApp.close is not available');
-                if (webApp?.BackButton) {
-                    webApp.BackButton.show();
-                    webApp.BackButton.onClick(() => {
-                        console.log("Back button pressed");
-                        webApp.close();
-                    });
+        function waitForWebApp() {
+            return new Promise((resolve, reject) => { // Добавляем reject для обработки ошибок
+                if (window.Telegram?.WebApp) {
+                    resolve(window.Telegram.WebApp);
                 } else {
-                    console.log("BackButton is not available");
+                    const checkInterval = setInterval(() => {
+                        if (window.Telegram?.WebApp) {
+                            clearInterval(checkInterval);
+                            resolve(window.Telegram.WebApp);
+                        }
+                    }, 100);
+
+                    setTimeout(() => { // Добавляем тайм-аут на случай, если WebApp не появится
+                        clearInterval(checkInterval);
+                        reject(new Error("WebApp не загрузился")); // Отправляем ошибку, если WebApp не инициализировался
+                    }, 5000);
                 }
-            }
-        });
-    }).catch((error) => {
-        console.error("Error initializing WebApp:", error);
-        showHand();
-    });
-
-    getCoinsBtn.addEventListener('click', function () {
-        console.log("Get coins button clicked");
-        balanceSection.style.display = 'block';
-        getCoinsBtn.style.display = 'none';
-
-        let startTime = Date.now();
-        let duration = 1000;
-        let targetBalance = 50;
-
-        function updateBalance() {
-            let currentTime = Date.now();
-            let elapsedTime = currentTime - startTime;
-
-            if (elapsedTime < duration) {
-                let progress = elapsedTime / duration;
-                let currentBalance = Math.round(progress * targetBalance);
-                balanceElement.textContent = currentBalance + " VUS";
-                requestAnimationFrame(updateBalance);
-            } else {
-                balanceElement.textContent = targetBalance + " VUS";
-                console.log('Баланс успешно обновлен');
-                
-                balanceElement.classList.remove('animate-pulse');
-                void balanceElement.offsetWidth;
-                balanceElement.classList.add('animate-pulse');
-                
-                setTimeout(() => {
-                    balanceElement.style.color = '#808080';
-                }, 1000);
-            }
+            });
         }
 
-        updateBalance();
-    });
+        const hand = document.getElementById('hand-container');
+        const balanceSection = document.getElementById('balance-section');
+        const balanceElement = document.getElementById('balance');
+        const getCoinsBtn = document.getElementById('get-coins-btn');
 
-    const urlParams = new URLSearchParams(window.location.search);
-    const username = urlParams.get('username') || 'Гість';
-    document.getElementById('username').textContent = username;
-    console.log("Username set:", username);
-});
-  </script>
+        function hideHand() {
+            hand.classList.add('hidden');
+            console.log("Hand hidden");
+        }
+
+        function showHand() {
+            hand.classList.remove('hidden');
+            console.log("Hand shown");
+        }
+
+        function checkWebAppState(webApp) {
+            console.log("Checking WebApp state. isExpanded:", webApp.isExpanded);
+
+            const viewportHeight = window.innerHeight;
+            const documentHeight = document.documentElement.scrollHeight;
+            console.log("Viewport height:", viewportHeight, "Document height:", documentHeight);
+
+            setTimeout(() => {
+                console.log("Delayed check. isExpanded:", webApp.isExpanded);
+                if (webApp.isExpanded || viewportHeight >= documentHeight - 10) {
+                    hideHand();
+                } else {
+                    showHand();
+                }
+            }, 500);
+        }
+
+        const observer = new MutationObserver(() => {
+            if (tg) checkWebAppState(tg);
+        });
+
+        waitForWebApp().then((webApp) => {
+            console.log("WebApp initialized:", webApp);
+            tg = webApp;
+            checkWebAppState(webApp);
+
+            webApp.onEvent('viewportChanged', () => {
+                console.log("Viewport changed. New isExpanded state:", webApp.isExpanded);
+                checkWebAppState(webApp);
+            });
+
+            observer.observe(document.body, {
+                attributes: true,
+                childList: true,
+                subtree: true
+            });
+
+            document.getElementById('close-btn').addEventListener('click', function() {
+                console.log("Close button clicked");
+                console.log("WebApp object:", webApp);
+                if (webApp?.close) {
+                    console.log("Attempting to close WebApp");
+                    webApp.close();
+                } else {
+                    console.log('WebApp.close is not available');
+                    if (webApp?.BackButton) {
+                        webApp.BackButton.show();
+                        webApp.BackButton.onClick(() => {
+                            console.log("Back button pressed");
+                            webApp.close();
+                        });
+                    } else {
+                        console.log("BackButton is not available");
+                    }
+                }
+            });
+        }).catch((error) => { // Добавляем обработку ошибки
+            console.error("Error initializing WebApp:", error);
+            showHand(); // Показываем интерфейс, если WebApp не загрузился
+        });
+
+        getCoinsBtn.addEventListener('click', function () {
+            console.log("Get coins button clicked");
+            balanceSection.style.display = 'block';
+            getCoinsBtn.style.display = 'none';
+
+            let startTime = Date.now();
+            let duration = 1000;
+            let targetBalance = 50;
+
+            function updateBalance() {
+                let currentTime = Date.now();
+                let elapsedTime = currentTime - startTime;
+
+                if (elapsedTime < duration) {
+                    let progress = elapsedTime / duration;
+                    let currentBalance = Math.round(progress * targetBalance);
+                    balanceElement.textContent = currentBalance + " VUS";
+                    requestAnimationFrame(updateBalance);
+                } else {
+                    balanceElement.textContent = targetBalance + " VUS";
+                    console.log('Баланс успешно обновлен');
+
+                    balanceElement.classList.remove('animate-pulse');
+                    void balanceElement.offsetWidth;
+                    balanceElement.classList.add('animate-pulse');
+
+                    setTimeout(() => {
+                        balanceElement.style.color = '#808080';
+                    }, 1000);
+                }
+            }
+
+            updateBalance();
+        });
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const username = urlParams.get('username') || 'Гість';
+        document.getElementById('username').textContent = username;
+        console.log("Username set:", username);
+    });
+</script>
+
 
 </body>
 </html>
