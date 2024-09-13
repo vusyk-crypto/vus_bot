@@ -319,11 +319,15 @@
 		window.addEventListener('load', function() {
     var hand = document.getElementById('hand-container');
     
-    // Таймер на 4 секунды для исчезновения руки
-    setTimeout(function() {
-        hand.classList.add('hidden'); // Скрываем руку после 4 секунд
-    }, 4000); // 4000 миллисекунд = 4 секунды
-});
+// Проверяем, есть ли элемент hand-container
+        if (hand) {
+            setTimeout(function() {
+                hand.classList.add('hidden'); // Скрываем руку после 4 секунд
+            }, 4000); // 4000 миллисекунд = 4 секунды
+        } else {
+            console.log("Элемент #hand-container не найден");
+        }
+    });
 
 
 
