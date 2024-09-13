@@ -258,12 +258,13 @@
         </a>
     </nav>
 
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const imgUrl = "vus.png?timestamp=" + new Date().getTime();
-            document.getElementById("logo").src = imgUrl;
-        });
+   <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Обновляем изображение с логотипом
+        const imgUrl = "vus.png?timestamp=" + new Date().getTime();
+        document.getElementById("logo").src = imgUrl;
 
+        // Добавляем обработчик для кнопки получения монет
         document.getElementById('get-coins-btn').addEventListener('click', function () {
             let balanceSection = document.getElementById('balance-section');
             let balanceElement = document.getElementById('balance');
@@ -277,7 +278,7 @@
             function updateBalance() {
                 let currentTime = Date.now();
                 let elapsedTime = currentTime - startTime;
-                
+
                 if (elapsedTime < duration) {
                     let progress = elapsedTime / duration;
                     let currentBalance = Math.round(progress * targetBalance);
@@ -295,7 +296,8 @@
                     
                     // Додаємо клас анімації
                     balanceElement.classList.add('animate-pulse');
-					// Змінюємо колір на сірий після завершення анімації
+                    
+                    // Змінюємо колір на сірий після завершення анімації
                     setTimeout(() => {
                         balanceElement.style.color = '#808080'; // Сірий колір
                     }, 1000); // Чекаємо 1 секунду (тривалість анімації)
@@ -305,6 +307,7 @@
             updateBalance();
         });
 
+        // Обработчик для кнопки закрытия
         document.getElementById('close-btn').addEventListener('click', function() {
             const tg = window.Telegram.WebApp;
             if (tg) {
@@ -314,43 +317,31 @@
             }
         });
 
+        // Установка имени пользователя
         const urlParams = new URLSearchParams(window.location.search);
         const username = urlParams.get('username') || 'Гість';
         document.getElementById('username').textContent = username;
-		
-		window.addEventListener('load', function() {
-    var hand = document.getElementById('hand-container');
-    
-// Добавляем обработчик события для скроллинга страницы
-window.addEventListener('scroll', function() {
-    var hand = document.getElementById('hand-container');
-    var scrollPosition = window.scrollY || window.pageYOffset;
 
-    console.log("Позиция прокрутки:", scrollPosition); // Для отладки, выводим текущее значение прокрутки
+        // Анимация исчезновения руки
+        var hand = document.getElementById('hand-container');
+        window.addEventListener('scroll', function() {
+            var scrollPosition = window.scrollY || window.pageYOffset;
+            console.log("Позиция прокрутки:", scrollPosition); // Для отладки, выводим текущее значение прокрутки
+            if (scrollPosition > 50) {
+                console.log("Добавляем класс 'hidden'"); // Проверяем, сработало ли условие
+                hand.classList.add('hidden'); // Добавляем класс для скрытия руки
+            }
+        });
 
-    // Если пользователь прокрутил больше 50 пикселей, скрываем руку
-    if (scrollPosition > 50) {
-        console.log("Добавляем класс 'hidden'"); // Проверяем, сработало ли условие
-        hand.classList.add('hidden'); // Добавляем класс для скрытия руки
-    }
-});
+        window.addEventListener('touchmove', function(event) {
+            console.log("Touchmove detected"); // Для отладки, проверяем, срабатывает ли событие touchmove
+            if (window.scrollY > 50) {
+                console.log("Добавляем класс 'hidden' на мобильных"); // Проверяем, сработало ли условие для touchmove
+                hand.classList.add('hidden'); // Добавляем класс для скрытия руки
+            }
+        });
+    });
+</script>
 
-// Добавляем обработчик свайпа для мобильных устройств
-window.addEventListener('touchmove', function(event) {
-    var hand = document.getElementById('hand-container');
-    
-    console.log("Touchmove detected"); // Для отладки, проверяем, срабатывает ли событие touchmove
-    
-    // Если есть прокрутка страницы, скрываем руку
-    if (window.scrollY > 50) {
-        console.log("Добавляем класс 'hidden' на мобильных"); // Проверяем, сработало ли условие для touchmove
-        hand.classList.add('hidden'); // Добавляем класс для скрытия руки
-    }
-});
-
-
-
-
-    </script>
 </body>
 </html>
