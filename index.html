@@ -53,27 +53,26 @@
         }
 
 #logo-container {
-    width: 240px;
-    height: 240px;
-    padding: 2px;
+    width: 240px; /* Фиксированная ширина */
+    height: 240px; /* Фиксированная высота */
+    padding: 0; /* Удаляем padding, который мог влиять на форму */
     background: linear-gradient(to right, #007bff, #00d4ff);
-    border-radius: 50%;
+    border-radius: 50%; /* Круглая форма */
     display: flex;
     justify-content: center;
     align-items: center;
     margin: 0 auto;
     margin-bottom: 10px;
     overflow: hidden;
-    box-sizing: border-box; /* Убедимся, что padding включен в общую ширину */
 }
 
 #logo {
     width: 100%;
     height: 100%;
-    border-radius: 50%;
-    object-fit: contain;
-    transform: scale(1.1); /* Немного увеличиваем лого */
+    border-radius: 50%; /* Круглая форма для логотипа */
+    object-fit: cover; /* Убедимся, что логотип занимает весь контейнер, не теряя пропорций */
 }
+
 
 
 
