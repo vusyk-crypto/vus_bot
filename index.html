@@ -266,87 +266,87 @@
 
    <script>
     document.addEventListener("DOMContentLoaded", function() {
-        // Обновляем изображение с логотипом
-        const imgUrl = "vus.png?timestamp=" + new Date().getTime();
-        document.getElementById("logo").src = imgUrl;
+    const tg = window.Telegram.WebApp;
 
-        // Добавляем обработчик для кнопки получения монет
-        document.getElementById('get-coins-btn').addEventListener('click', function () {
-            let balanceSection = document.getElementById('balance-section');
-            let balanceElement = document.getElementById('balance');
-            balanceSection.style.display = 'block';
-            document.getElementById('get-coins-btn').style.display = 'none';
+    // Обновляем изображение с логотипом
+    const imgUrl = "vus.png?timestamp=" + new Date().getTime();
+    document.getElementById("logo").src = imgUrl;
 
-            let startTime = Date.now();
-            let duration = 1000;
-            let targetBalance = 50;
+    // Добавляем обработчик для кнопки получения монет
+    document.getElementById('get-coins-btn').addEventListener('click', function () {
+        let balanceSection = document.getElementById('balance-section');
+        let balanceElement = document.getElementById('balance');
+        balanceSection.style.display = 'block';
+        document.getElementById('get-coins-btn').style.display = 'none';
 
-            function updateBalance() {
-                let currentTime = Date.now();
-                let elapsedTime = currentTime - startTime;
+        let startTime = Date.now();
+        let duration = 1000;
+        let targetBalance = 50;
 
-                if (elapsedTime < duration) {
-                    let progress = elapsedTime / duration;
-                    let currentBalance = Math.round(progress * targetBalance);
-                    balanceElement.textContent = currentBalance;
-                    requestAnimationFrame(updateBalance);
-                } else {
-                    balanceElement.textContent = targetBalance;
-                    console.log('Баланс успішно оновлено');
-                    
-                    // Видаляємо клас анімації, якщо він вже є
-                    balanceElement.classList.remove('animate-pulse');
-                    
-                    // Форсуємо перерисовку DOM
-                    void balanceElement.offsetWidth;
-                    
-                    // Додаємо клас анімації
-                    balanceElement.classList.add('animate-pulse');
-                    
-                    // Змінюємо колір на сірий після завершення анімації
-                    setTimeout(() => {
-                        balanceElement.style.color = '#808080'; // Сірий колір
-                    }, 1000); // Чекаємо 1 секунду (тривалість анімації)
-                }
-            }
+        function updateBalance() {
+            let currentTime = Date.now();
+            let elapsedTime = currentTime - startTime;
 
-            updateBalance();
-        });
-
-        // Обработчик для кнопки закрытия
-        document.getElementById('close-btn').addEventListener('click', function() {
-            const tg = window.Telegram.WebApp;
-            if (tg) {
-                tg.close();
+            if (elapsedTime < duration) {
+                let progress = elapsedTime / duration;
+                let currentBalance = Math.round(progress * targetBalance);
+                balanceElement.textContent = currentBalance;
+                requestAnimationFrame(updateBalance);
             } else {
-                console.log('Telegram WebApp не ініціалізований або викликається не з Telegram.');
+                balanceElement.textContent = targetBalance;
+                console.log('Баланс успішно оновлено');
+                
+                // Видаляємо клас анімації, якщо він вже є
+                balanceElement.classList.remove('animate-pulse');
+                
+                // Форсуємо перерисовку DOM
+                void balanceElement.offsetWidth;
+                
+                // Додаємо клас анімації
+                balanceElement.classList.add('animate-pulse');
+                
+                // Змінюємо колір на сірий після завершення анімації
+                setTimeout(() => {
+                    balanceElement.style.color = '#808080'; // Сірий колір
+                }, 1000); // Чекаємо 1 секунду (тривалість анімації)
             }
-        });
+        }
 
-        // Установка имени пользователя
-        const urlParams = new URLSearchParams(window.location.search);
-        const username = urlParams.get('username') || 'Гість';
-        document.getElementById('username').textContent = username;
-
-        // Анимация исчезновения руки
-        var hand = document.getElementById('hand-container');
-        window.addEventListener('scroll', function() {
-            var scrollPosition = window.scrollY || window.pageYOffset;
-            console.log("Позиция прокрутки:", scrollPosition); // Для отладки, выводим текущее значение прокрутки
-            if (scrollPosition > 50) {
-                console.log("Добавляем класс 'hidden'"); // Проверяем, сработало ли условие
-                hand.classList.add('hidden'); // Добавляем класс для скрытия руки
-            }
-        });
-
-        window.addEventListener('touchmove', function(event) {
-            console.log("Touchmove detected"); // Для отладки, проверяем, срабатывает ли событие touchmove
-            if (window.scrollY > 50) {
-                console.log("Добавляем класс 'hidden' на мобильных"); // Проверяем, сработало ли условие для touchmove
-                hand.classList.add('hidden'); // Добавляем класс для скрытия руки
-            }
-        });
+        updateBalance();
     });
+
+    // Обработчик для кнопки закрытия
+    document.getElementById('close-btn').addEventListener('click', function() {
+        if (tg) {
+            tg.close();
+        } else {
+            console.log('Telegram WebApp не ініціалізований або викликається не з Telegram.');
+        }
+    });
+
+    // Установка имени пользователя
+    const urlParams = new URLSearchParams(window.location.search);
+    const username = urlParams.get('username') || 'Гість';
+    document.getElementById('username').textContent = username;
+
+    // Анимация исчезновения руки
+    var hand = document.getElementById('hand-container');
+
+    // Проверяем, если Telegram WebApp разворачивается
+    tg.onEvent('expand', function() {
+        console.log("WebApp expanded, скрываем руку");
+        hand.classList.add('hidden'); // Скрываем руку после разворачивания
+    });
+
+    // Показать руку, если WebApp еще не развернут
+    if (!tg.isExpanded) {
+        hand.classList.remove('hidden');
+    }
+
+    // Запрос на автоматическое разворачивание WebApp
+    tg.expand(); // Принудительно разворачиваем окно при загрузке, если это требуется
+});
+
 </script>
 
 </body>
