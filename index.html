@@ -261,14 +261,13 @@
     // Перевірка та очікування ініціалізації WebApp
     function waitForWebApp() {
         return new Promise((resolve) => {
-            if (tg) {
-                resolve(tg);
+            if (window.Telegram?.WebApp) {
+                resolve(window.Telegram.WebApp);
             } else {
                 const checkInterval = setInterval(() => {
-                    tg = window.Telegram?.WebApp;
-                    if (tg) {
+                    if (window.Telegram?.WebApp) {
                         clearInterval(checkInterval);
-                        resolve(tg);
+                        resolve(window.Telegram.WebApp);
                     }
                 }, 100);
             }
@@ -290,8 +289,8 @@
         console.log("Hand shown");
     }
 
-    function checkWebAppState() {
-        if (tg?.isExpanded) {
+    function checkWebAppState(webApp) {
+        if (webApp?.isExpanded) {
             hideHand();
         } else {
             showHand();
@@ -300,9 +299,31 @@
 
     waitForWebApp().then((webApp) => {
         console.log("WebApp initialized:", webApp);
-        checkWebAppState();
+        tg = webApp;
+        checkWebAppState(webApp);
 
-        webApp.onEvent('viewportChanged', checkWebAppState);
+        webApp.onEvent('viewportChanged', () => checkWebAppState(webApp));
+        
+        // Обработчик для кнопки закрытия
+        document.getElementById('close-btn').addEventListener('click', function() {
+            console.log("Close button clicked");
+            console.log("WebApp object:", webApp);
+            if (webApp?.close) {
+                console.log("Attempting to close WebApp");
+                webApp.close();
+            } else {
+                console.log('WebApp.close is not available');
+                if (webApp?.BackButton) {
+                    webApp.BackButton.show();
+                    webApp.BackButton.onClick(() => {
+                        console.log("Back button pressed");
+                        webApp.close();
+                    });
+                } else {
+                    console.log("BackButton is not available");
+                }
+            }
+        });
     }).catch((error) => {
         console.error("Error initializing WebApp:", error);
         showHand();
@@ -342,16 +363,6 @@
         }
 
         updateBalance();
-    });
-
-    // Обработчик для кнопки закрытия
-    document.getElementById('close-btn').addEventListener('click', function() {
-        console.log("Close button clicked");
-        if (tg) {
-            tg.close();
-        } else {
-            console.log('Telegram WebApp не инициализирован или вызван не из Telegram.');
-        }
     });
 
     // Установка имени пользователя
