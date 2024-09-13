@@ -258,7 +258,6 @@
     document.addEventListener("DOMContentLoaded", function() {
     let tg = window.Telegram?.WebApp;
     
-    // Перевірка та очікування ініціалізації WebApp
     function waitForWebApp() {
         return new Promise((resolve) => {
             if (window.Telegram?.WebApp) {
@@ -290,21 +289,42 @@
     }
 
     function checkWebAppState(webApp) {
-        if (webApp?.isExpanded) {
-            hideHand();
-        } else {
-            showHand();
-        }
+        console.log("Checking WebApp state. isExpanded:", webApp.isExpanded);
+        
+        const viewportHeight = window.innerHeight;
+        const documentHeight = document.documentElement.scrollHeight;
+        console.log("Viewport height:", viewportHeight, "Document height:", documentHeight);
+        
+        setTimeout(() => {
+            console.log("Delayed check. isExpanded:", webApp.isExpanded);
+            if (webApp.isExpanded || viewportHeight >= documentHeight - 10) {
+                hideHand();
+            } else {
+                showHand();
+            }
+        }, 500);
     }
+
+    const observer = new MutationObserver(() => {
+        if (tg) checkWebAppState(tg);
+    });
 
     waitForWebApp().then((webApp) => {
         console.log("WebApp initialized:", webApp);
         tg = webApp;
         checkWebAppState(webApp);
 
-        webApp.onEvent('viewportChanged', () => checkWebAppState(webApp));
+        webApp.onEvent('viewportChanged', () => {
+            console.log("Viewport changed. New isExpanded state:", webApp.isExpanded);
+            checkWebAppState(webApp);
+        });
         
-        // Обработчик для кнопки закрытия
+        observer.observe(document.body, { 
+            attributes: true, 
+            childList: true, 
+            subtree: true 
+        });
+
         document.getElementById('close-btn').addEventListener('click', function() {
             console.log("Close button clicked");
             console.log("WebApp object:", webApp);
@@ -329,7 +349,6 @@
         showHand();
     });
 
-    // ЛОГИКА ДЛЯ КНОПКИ "ОТРИМАТИ МОНЕТИ"
     getCoinsBtn.addEventListener('click', function () {
         console.log("Get coins button clicked");
         balanceSection.style.display = 'block';
@@ -365,7 +384,6 @@
         updateBalance();
     });
 
-    // Установка имени пользователя
     const urlParams = new URLSearchParams(window.location.search);
     const username = urlParams.get('username') || 'Гість';
     document.getElementById('username').textContent = username;
