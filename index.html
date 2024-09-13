@@ -52,22 +52,23 @@
             color: #808080;
         }
 
-       #logo-container {
-    width: 120px; /* Зменшено з 150px */
-    height: 120px; /* Зменшено з 150px */
-    padding: 5px;
+      #logo-container {
+    width: 120px;
+    height: 120px;
+    padding: 0; /* Змінено з 1px на 0 */
     background-color: #007bff;
-    border-radius: 50%; /* Залишаємо 50% для ідеального кола */
+    border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
     margin: 0 auto;
     margin-bottom: 10px;
+    overflow: hidden; /* Додано для обрізання кутів внутрішнього зображення */
 }
 
 #logo {
-    width: calc(100% - 10px);
-    height: calc(100% - 10px);
+    width: 100%; /* Змінено з calc(100% - 10px) */
+    height: 100%; /* Змінено з calc(100% - 10px) */
     border-radius: 50%;
     object-fit: cover;
 }
