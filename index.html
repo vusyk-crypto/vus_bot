@@ -52,27 +52,27 @@
             color: #808080;
         }
 
-#logo-container {
-    width: 240px;
-    height: 240px;
-	padding: 2px; /* Додаємо трохи відступів для симетрії */
-    background: linear-gradient(to right, #007bff, #00d4ff); /* Сильніший градієнт зліва направо */
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0 auto;
-    margin-bottom: 10px;
-    overflow: hidden;
-}
+        #logo-container {
+            width: 240px;
+            height: 240px;
+	        padding: 2px; /* Додаємо трохи відступів для симетрії */
+            background: linear-gradient(to right, #007bff, #00d4ff); /* Сильніший градієнт зліва направо */
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto;
+            margin-bottom: 10px;
+            overflow: hidden;
+        }
 
-#logo {
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    object-fit: contain; /* Адаптуємо зображення під розмір контейнера */
-    transform: scale(1.1); /* Збільшуємо розмір лого на 10% */
-}
+        #logo {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: contain; /* Адаптуємо зображення під розмір контейнера */
+            transform: scale(1.1); /* Збільшуємо розмір лого на 10% */
+        }
         #username {
             font-size: 20px;
             margin-top: 10px;
@@ -159,6 +159,39 @@
         nav a.active img {
             filter: invert(35%) sepia(100%) saturate(600%) hue-rotate(180deg) brightness(95%) contrast(85%);
         }
+		
+		/* Рука для свапа */
+		#hand-container {
+    position: fixed;
+    bottom: 20px; /* Розташування біля нижнього краю сторінки */
+    right: 20px; /* Розташування збоку */
+    z-index: 9999; /* Щоб елемент був поверх всіх інших */
+    opacity: 0.7; /* Напівпрозорість */
+}
+
+#hand {
+    width: 50px; /* Задаємо розмір руки */
+    height: auto;
+    animation: moveUpDown 1.5s ease-in-out infinite; /* Анімація постійного руху вгору-вниз */
+}
+
+/* Анімація руху */
+@keyframes moveUpDown {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px); /* Рука підіймається вгору */
+    }
+    100% {
+        transform: translateY(0); /* Рука повертається на місце */
+    }
+}
+
+.hidden {
+    display: none; /* Приховуємо елемент */
+}
+
     </style>
 </head>
 <body>
@@ -180,6 +213,12 @@
     <div id="logo-container">
         <img id="logo" src="vus.png" alt="VUS Logo">
     </div>
+	
+	<!--Рука для свапа-->
+	<div id="hand-container">
+        <img id="hand" src="hand-arrow.png" alt="Swipe up">
+    </div>
+    <!--Конец руки для свапа-->
 
     <div id="username"></div>
 
@@ -271,6 +310,17 @@
         const urlParams = new URLSearchParams(window.location.search);
         const username = urlParams.get('username') || 'Гість';
         document.getElementById('username').textContent = username;
+		
+		// Додаємо подію на прокрутку або свайп
+window.addEventListener('scroll', function() {
+    var hand = document.getElementById('hand-container');
+    var scrollPosition = window.scrollY || window.pageYOffset;
+    
+    if (scrollPosition > 50) { // Користувач прокрутив більше ніж на 50px
+        hand.classList.add('hidden'); // Приховуємо руку
+    }
+});
+
     </script>
 </body>
 </html>
