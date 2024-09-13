@@ -256,29 +256,44 @@
 
   <script>
     document.addEventListener("DOMContentLoaded", function() {
-        const tg = window.Telegram.WebApp;
+        const tg = window.Telegram?.WebApp;
 
         // Инициализация элемента с рукой
-        var hand = document.getElementById('hand-container');
+        const hand = document.getElementById('hand-container');
+        const balanceSection = document.getElementById('balance-section');
+        const balanceElement = document.getElementById('balance');
+        const getCoinsBtn = document.getElementById('get-coins-btn');
 
-        // Скрываем руку, если WebApp уже развернут
-        if (tg.isExpanded) {
-            hand.classList.add('hidden'); 
-        } else {
-            hand.classList.remove('hidden'); 
+        function hideHand() {
+            hand.classList.add('hidden');
         }
 
-        // Скрываем руку, когда WebApp разворачивается
-        tg.onEvent('expand', function() {
-            hand.classList.add('hidden'); 
-        });
+        function showHand() {
+            hand.classList.remove('hidden');
+        }
+
+        // Проверяем состояние WebApp при загрузке
+        if (tg && tg.isExpanded) {
+            hideHand();
+        } else {
+            showHand();
+        }
+
+        // Слушаем событие развертывания WebApp
+        if (tg) {
+            tg.onEvent('viewportChanged', function() {
+                if (tg.isExpanded) {
+                    hideHand();
+                } else {
+                    showHand();
+                }
+            });
+        }
 
         // ЛОГИКА ДЛЯ КНОПКИ "ОТРИМАТИ МОНЕТИ"
-        document.getElementById('get-coins-btn').addEventListener('click', function () {
-            let balanceSection = document.getElementById('balance-section');
-            let balanceElement = document.getElementById('balance');
+        getCoinsBtn.addEventListener('click', function () {
             balanceSection.style.display = 'block';
-            document.getElementById('get-coins-btn').style.display = 'none'; // Прячем кнопку после нажатия
+            getCoinsBtn.style.display = 'none'; // Прячем кнопку после нажатия
 
             let startTime = Date.now();
             let duration = 1000; // 1 секунда
