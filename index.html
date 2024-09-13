@@ -52,32 +52,27 @@
             color: #808080;
         }
 
-#logo-container {
-    width: 240px;
-    height: 240px;
-    padding: 2px;
-    background: linear-gradient(to right, #007bff, #00d4ff);
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0 auto;
-    margin-bottom: 10px;
-    overflow: hidden;
-}
+        #logo-container {
+            width: 240px;
+            height: 240px;
+            padding: 2px;
+            background: linear-gradient(to right, #007bff, #00d4ff);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto;
+            margin-bottom: 10px;
+            overflow: hidden;
+        }
 
-#logo {
-    width: 238px;
-    height: 238px;
-    border-radius: 50%;
-    object-fit: contain;
-    transform: scale(1.1);
-}
-
-
-
-
-
+        #logo {
+            width: 238px;
+            height: 238px;
+            border-radius: 50%;
+            object-fit: contain;
+            transform: scale(1.1);
+        }
 
         #username {
             font-size: 20px;
@@ -91,9 +86,9 @@
             margin-top: 10px;
             display: none;
         }
-		
-		 #balance-section span {
-            color: #333333; /* Темно-сірий колір для всього тексту в #balance-section */
+
+        #balance-section span {
+            color: #333333; 
         }
 
         #balance {
@@ -165,45 +160,40 @@
         nav a.active img {
             filter: invert(35%) sepia(100%) saturate(600%) hue-rotate(180deg) brightness(95%) contrast(85%);
         }
-		
-		/* Рука для свапа */
-		#hand-container {
-    position: fixed;
-    top: 150px; /* Розташування біля нижнього краю сторінки */
-    left: 20px; /* Розташування збоку */
-    z-index: 9999; /* Щоб елемент був поверх всіх інших */
-    opacity: 0.7; /* Напівпрозорість */
-}
 
-#hand {
-    width: 50px; /* Задаємо розмір руки */
-    height: auto;
-    animation: moveUpDown 1.5s ease-in-out infinite; /* Анімація постійного руху вгору-вниз */
-}
+        /* Рука для свапа */
+        #hand-container {
+            position: fixed;
+            top: 150px;
+            left: 20px;
+            z-index: 9999;
+            opacity: 0.7;
+        }
 
-/* Анімація руху */
-@keyframes moveUpDown {
-    0% {
-        transform: translateY(0);
-    }
-    50% {
-        transform: translateY(-15px); /* Рука підіймається вгору */
-    }
-    100% {
-        transform: translateY(0); /* Рука повертається на місце */
-    }
-}
+        #hand {
+            width: 50px;
+            height: auto;
+            animation: moveUpDown 1.5s ease-in-out infinite;
+        }
 
-.hidden {
-    opacity: 0; /* Изменяем прозрачность до нуля для плавного исчезновения */
-    transition: opacity 0.5s ease-in-out; /* Плавный переход */
-    pointer-events: none; /* Элемент больше не будет активен для кликов */
-    display: none; /* Полностью скрываем элемент после исчезновения */
-}
+        @keyframes moveUpDown {
+            0% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-15px);
+            }
+            100% {
+                transform: translateY(0);
+            }
+        }
 
-
-
-
+        .hidden {
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+            pointer-events: none;
+            display: none;
+        }
 
     </style>
 </head>
@@ -227,11 +217,11 @@
         <img id="logo" src="vus.png" alt="VUS Logo">
     </div>
 	
-	<!--Рука для свапа-->
+	<!-- Рука для свапа -->
 	<div id="hand-container">
         <img id="hand" src="hand-arrow.png" alt="Swipe up">
     </div>
-    <!--Конец руки для свапа-->
+    <!-- Конец руки для свапа -->
 
     <div id="username"></div>
 
@@ -268,6 +258,21 @@
     document.addEventListener("DOMContentLoaded", function() {
         const tg = window.Telegram.WebApp;
 
+        // Инициализация элемента с рукой
+        var hand = document.getElementById('hand-container');
+
+        // Скрываем руку, если WebApp уже развернут
+        if (tg.isExpanded) {
+            hand.classList.add('hidden'); 
+        } else {
+            hand.classList.remove('hidden'); 
+        }
+
+        // Скрываем руку, когда WebApp разворачивается
+        tg.onEvent('expand', function() {
+            hand.classList.add('hidden'); 
+        });
+
         // ЛОГИКА ДЛЯ КНОПКИ "ОТРИМАТИ МОНЕТИ"
         document.getElementById('get-coins-btn').addEventListener('click', function () {
             let balanceSection = document.getElementById('balance-section');
@@ -277,7 +282,7 @@
 
             let startTime = Date.now();
             let duration = 1000; // 1 секунда
-            let targetBalance = 5; // Количество монет
+            let targetBalance = 50; // Количество монет
 
             function updateBalance() {
                 let currentTime = Date.now();
@@ -320,24 +325,8 @@
         const urlParams = new URLSearchParams(window.location.search);
         const username = urlParams.get('username') || 'Гість';
         document.getElementById('username').textContent = username;
-
-        // Проверка развёрнут ли WebApp и скрытие руки
-        var hand = document.getElementById('hand-container');
-        if (tg.isExpanded) {
-            hand.classList.add('hidden'); 
-        } else {
-            hand.classList.remove('hidden'); 
-        }
-
-        // Событие при развёртывании WebApp
-        tg.onEvent('expand', function() {
-            hand.classList.add('hidden'); 
-        });
     });
-</script>
-
-
-
+  </script>
 
 </body>
 </html>
