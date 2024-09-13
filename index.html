@@ -321,8 +321,11 @@ window.addEventListener('scroll', function() {
     var hand = document.getElementById('hand-container');
     var scrollPosition = window.scrollY || window.pageYOffset;
 
+    console.log("Позиция прокрутки:", scrollPosition); // Для отладки, выводим текущее значение прокрутки
+
     // Если пользователь прокрутил больше 50 пикселей, скрываем руку
     if (scrollPosition > 50) {
+        console.log("Добавляем класс 'hidden'"); // Проверяем, сработало ли условие
         hand.classList.add('hidden'); // Добавляем класс для скрытия руки
     }
 });
@@ -331,11 +334,15 @@ window.addEventListener('scroll', function() {
 window.addEventListener('touchmove', function(event) {
     var hand = document.getElementById('hand-container');
     
-    // Если свайп происходит и есть прокрутка страницы, скрываем руку
+    console.log("Touchmove detected"); // Для отладки, проверяем, срабатывает ли событие touchmove
+    
+    // Если есть прокрутка страницы, скрываем руку
     if (window.scrollY > 50) {
+        console.log("Добавляем класс 'hidden' на мобильных"); // Проверяем, сработало ли условие для touchmove
         hand.classList.add('hidden'); // Добавляем класс для скрытия руки
     }
 });
+
 
 
     </script>
