@@ -192,8 +192,8 @@
     opacity: 0; /* Изменяем прозрачность до нуля для плавного исчезновения */
     transition: opacity 0.5s ease-in-out; /* Плавный переход */
     pointer-events: none; /* Элемент больше не будет активен для кликов */
-    display: none; /* Полностью скрываем элемент после исчезновения */
 }
+
 
 
 
@@ -316,31 +316,13 @@
         const username = urlParams.get('username') || 'Гість';
         document.getElementById('username').textContent = username;
 		
-		// Добавляем обработчик события для скроллинга страницы
-window.addEventListener('scroll', function() {
-    var hand = document.getElementById('hand-container');
-    var scrollPosition = window.scrollY || window.pageYOffset;
-
-    console.log("Позиция прокрутки:", scrollPosition); // Для отладки, выводим текущее значение прокрутки
-
-    // Если пользователь прокрутил больше 50 пикселей, скрываем руку
-    if (scrollPosition > 50) {
-        console.log("Добавляем класс 'hidden'"); // Проверяем, сработало ли условие
-        hand.classList.add('hidden'); // Добавляем класс для скрытия руки
-    }
-});
-
-// Добавляем обработчик свайпа для мобильных устройств
-window.addEventListener('touchmove', function(event) {
+		window.addEventListener('load', function() {
     var hand = document.getElementById('hand-container');
     
-    console.log("Touchmove detected"); // Для отладки, проверяем, срабатывает ли событие touchmove
-    
-    // Если есть прокрутка страницы, скрываем руку
-    if (window.scrollY > 50) {
-        console.log("Добавляем класс 'hidden' на мобильных"); // Проверяем, сработало ли условие для touchmove
-        hand.classList.add('hidden'); // Добавляем класс для скрытия руки
-    }
+    // Таймер на 4 секунды для исчезновения руки
+    setTimeout(function() {
+        hand.classList.add('hidden'); // Скрываем руку после 4 секунд
+    }, 4000); // 4000 миллисекунд = 4 секунды
 });
 
 
