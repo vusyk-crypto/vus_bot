@@ -256,91 +256,111 @@
 
   <script>
     document.addEventListener("DOMContentLoaded", function() {
-        const tg = window.Telegram?.WebApp;
+    const tg = window.Telegram?.WebApp;
+    console.log("Telegram WebApp object:", tg);
 
-        // Инициализация элемента с рукой
-        const hand = document.getElementById('hand-container');
-        const balanceSection = document.getElementById('balance-section');
-        const balanceElement = document.getElementById('balance');
-        const getCoinsBtn = document.getElementById('get-coins-btn');
+    const hand = document.getElementById('hand-container');
+    const balanceSection = document.getElementById('balance-section');
+    const balanceElement = document.getElementById('balance');
+    const getCoinsBtn = document.getElementById('get-coins-btn');
 
-        function hideHand() {
-            hand.classList.add('hidden');
-        }
+    function hideHand() {
+        hand.classList.add('hidden');
+        console.log("Hand hidden");
+    }
 
-        function showHand() {
-            hand.classList.remove('hidden');
-        }
+    function showHand() {
+        hand.classList.remove('hidden');
+        console.log("Hand shown");
+    }
 
-        // Проверяем состояние WebApp при загрузке
-        if (tg && tg.isExpanded) {
+    function checkWebAppState() {
+        console.log("Checking WebApp state. Is expanded:", tg?.isExpanded);
+        if (tg?.isExpanded) {
             hideHand();
         } else {
             showHand();
         }
+    }
 
-        // Слушаем событие развертывания WebApp
-        if (tg) {
-            tg.onEvent('viewportChanged', function() {
-                if (tg.isExpanded) {
-                    hideHand();
-                } else {
-                    showHand();
-                }
-            });
+    // Проверяем состояние WebApp при загрузке
+    if (tg) {
+        console.log("WebApp initialized. Initial state:", tg.isExpanded ? "expanded" : "not expanded");
+        checkWebAppState();
+
+        // Слушаем различные события WebApp
+        tg.onEvent('viewportChanged', function() {
+            console.log("Viewport changed event. Is expanded:", tg.isExpanded);
+            checkWebAppState();
+        });
+
+        tg.onEvent('mainButtonClicked', function() {
+            console.log("Main button clicked");
+        });
+
+        tg.onEvent('backButtonClicked', function() {
+            console.log("Back button clicked");
+        });
+
+        // Дополнительная проверка состояния через интервал
+        setInterval(checkWebAppState, 1000);
+    } else {
+        console.log("WebApp not initialized");
+        showHand();
+    }
+
+    // ЛОГИКА ДЛЯ КНОПКИ "ОТРИМАТИ МОНЕТИ"
+    getCoinsBtn.addEventListener('click', function () {
+        console.log("Get coins button clicked");
+        balanceSection.style.display = 'block';
+        getCoinsBtn.style.display = 'none';
+
+        let startTime = Date.now();
+        let duration = 1000;
+        let targetBalance = 50;
+
+        function updateBalance() {
+            let currentTime = Date.now();
+            let elapsedTime = currentTime - startTime;
+
+            if (elapsedTime < duration) {
+                let progress = elapsedTime / duration;
+                let currentBalance = Math.round(progress * targetBalance);
+                balanceElement.textContent = currentBalance + " VUS";
+                requestAnimationFrame(updateBalance);
+            } else {
+                balanceElement.textContent = targetBalance + " VUS";
+                console.log('Баланс успешно обновлен');
+                
+                balanceElement.classList.remove('animate-pulse');
+                void balanceElement.offsetWidth;
+                balanceElement.classList.add('animate-pulse');
+                
+                setTimeout(() => {
+                    balanceElement.style.color = '#808080';
+                }, 1000);
+            }
         }
 
-        // ЛОГИКА ДЛЯ КНОПКИ "ОТРИМАТИ МОНЕТИ"
-        getCoinsBtn.addEventListener('click', function () {
-            balanceSection.style.display = 'block';
-            getCoinsBtn.style.display = 'none'; // Прячем кнопку после нажатия
-
-            let startTime = Date.now();
-            let duration = 1000; // 1 секунда
-            let targetBalance = 50; // Количество монет
-
-            function updateBalance() {
-                let currentTime = Date.now();
-                let elapsedTime = currentTime - startTime;
-
-                if (elapsedTime < duration) {
-                    let progress = elapsedTime / duration;
-                    let currentBalance = Math.round(progress * targetBalance);
-                    balanceElement.textContent = currentBalance + " VUS";
-                    requestAnimationFrame(updateBalance);
-                } else {
-                    balanceElement.textContent = targetBalance + " VUS"; // Выводим целевое количество монет
-                    console.log('Баланс успешно обновлен');
-                    
-                    // Анимация при достижении цели
-                    balanceElement.classList.remove('animate-pulse');
-                    void balanceElement.offsetWidth; // Форсируем перерисовку DOM
-                    balanceElement.classList.add('animate-pulse');
-                    
-                    // Изменение цвета после анимации
-                    setTimeout(() => {
-                        balanceElement.style.color = '#808080'; // Меняем цвет на серый
-                    }, 1000);
-                }
-            }
-
-            updateBalance(); // Запускаем процесс начисления монет
-        });
-
-        // Обработчик для кнопки закрытия
-        document.getElementById('close-btn').addEventListener('click', function() {
-            if (tg) {
-                tg.close();
-            } else {
-                console.log('Telegram WebApp не инициализирован или вызван не из Telegram.');
-            }
-        });
-
-        // Установка имени пользователя
-        const urlParams = new URLSearchParams(window.location.search);
-        const username = urlParams.get('username') || 'Гість';
-        document.getElementById('username').textContent = username;
+        updateBalance();
     });
+
+    // Обработчик для кнопки закрытия
+    document.getElementById('close-btn').addEventListener('click', function() {
+        console.log("Close button clicked");
+        if (tg) {
+            tg.close();
+        } else {
+            console.log('Telegram WebApp не инициализирован или вызван не из Telegram.');
+        }
+    });
+
+    // Установка имени пользователя
+    const urlParams = new URLSearchParams(window.location.search);
+    const username = urlParams.get('username') || 'Гість';
+    document.getElementById('username').textContent = username;
+    console.log("Username set:", username);
+});
   </script>
 
 </body>
