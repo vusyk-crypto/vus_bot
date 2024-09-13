@@ -53,9 +53,8 @@
         }
 
 #logo-container {
-    width: 220px;
-    height: 220px;
-    padding: 0px; /* Змінено з 1px на 0 */
+    width: 120px;
+    height: 120px;
     background-color: #007bff;
     border-radius: 50%;
     display: flex;
@@ -63,16 +62,16 @@
     align-items: center;
     margin: 0 auto;
     margin-bottom: 10px;
-    overflow: hidden; /* Додано для обрізання кутів внутрішнього зображення */
+    overflow: hidden;
 }
 
 #logo {
-    width: 100%; /* Змінено з calc(100% - 10px) */
-    height: 100%; /* Змінено з calc(100% - 10px) */
+    width: 100%;
+    height: 100%;
     border-radius: 50%;
     object-fit: cover;
+    transform: scale(1.1); /* Збільшуємо розмір лого на 10% */
 }
-
         #username {
             font-size: 20px;
             margin-top: 10px;
