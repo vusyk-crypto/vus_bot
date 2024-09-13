@@ -264,90 +264,90 @@
         </a>
     </nav>
 
-   <script>
+  <script>
     document.addEventListener("DOMContentLoaded", function() {
-    const tg = window.Telegram.WebApp;
+        const tg = window.Telegram.WebApp;
 
-    // Обновляем изображение с логотипом
-    const imgUrl = "vus.png?timestamp=" + new Date().getTime();
-    document.getElementById("logo").src = imgUrl;
+        // Обновляем изображение с логотипом
+        const imgUrl = "vus.png?timestamp=" + new Date().getTime();
+        document.getElementById("logo").src = imgUrl;
 
-    // Добавляем обработчик для кнопки получения монет
-    document.getElementById('get-coins-btn').addEventListener('click', function () {
-        let balanceSection = document.getElementById('balance-section');
-        let balanceElement = document.getElementById('balance');
-        balanceSection.style.display = 'block';
-        document.getElementById('get-coins-btn').style.display = 'none';
+        // Оставляем код для кнопки получения монет БЕЗ ИЗМЕНЕНИЙ
+        document.getElementById('get-coins-btn').addEventListener('click', function () {
+            let balanceSection = document.getElementById('balance-section');
+            let balanceElement = document.getElementById('balance');
+            balanceSection.style.display = 'block';
+            document.getElementById('get-coins-btn').style.display = 'none';
 
-        let startTime = Date.now();
-        let duration = 1000;
-        let targetBalance = 50;
+            let startTime = Date.now();
+            let duration = 1000;
+            let targetBalance = 50;
 
-        function updateBalance() {
-            let currentTime = Date.now();
-            let elapsedTime = currentTime - startTime;
+            function updateBalance() {
+                let currentTime = Date.now();
+                let elapsedTime = currentTime - startTime;
 
-            if (elapsedTime < duration) {
-                let progress = elapsedTime / duration;
-                let currentBalance = Math.round(progress * targetBalance);
-                balanceElement.textContent = currentBalance;
-                requestAnimationFrame(updateBalance);
-            } else {
-                balanceElement.textContent = targetBalance;
-                console.log('Баланс успішно оновлено');
-                
-                // Видаляємо клас анімації, якщо він вже є
-                balanceElement.classList.remove('animate-pulse');
-                
-                // Форсуємо перерисовку DOM
-                void balanceElement.offsetWidth;
-                
-                // Додаємо клас анімації
-                balanceElement.classList.add('animate-pulse');
-                
-                // Змінюємо колір на сірий після завершення анімації
-                setTimeout(() => {
-                    balanceElement.style.color = '#808080'; // Сірий колір
-                }, 1000); // Чекаємо 1 секунду (тривалість анімації)
+                if (elapsedTime < duration) {
+                    let progress = elapsedTime / duration;
+                    let currentBalance = Math.round(progress * targetBalance);
+                    balanceElement.textContent = currentBalance;
+                    requestAnimationFrame(updateBalance);
+                } else {
+                    balanceElement.textContent = targetBalance;
+                    console.log('Баланс успішно оновлено');
+                    
+                    // Видаляємо клас анімації, якщо він вже є
+                    balanceElement.classList.remove('animate-pulse');
+                    
+                    // Форсуємо перерисовку DOM
+                    void balanceElement.offsetWidth;
+                    
+                    // Додаємо клас анімації
+                    balanceElement.classList.add('animate-pulse');
+                    
+                    // Змінюємо колір на сірий після завершення анімації
+                    setTimeout(() => {
+                        balanceElement.style.color = '#808080'; // Сірий колір
+                    }, 1000); // Чекаємо 1 секунду (тривалість анімації)
+                }
             }
+
+            updateBalance();
+        });
+
+        // Обработчик для кнопки закрытия
+        document.getElementById('close-btn').addEventListener('click', function() {
+            if (tg) {
+                tg.close();
+            } else {
+                console.log('Telegram WebApp не ініціалізований або викликається не з Telegram.');
+            }
+        });
+
+        // Установка имени пользователя
+        const urlParams = new URLSearchParams(window.location.search);
+        const username = urlParams.get('username') || 'Гість';
+        document.getElementById('username').textContent = username;
+
+        // Анимация исчезновения руки при разворачивании Telegram Web App
+        var hand = document.getElementById('hand-container');
+
+        // Добавляем событие "expand" для скрытия руки
+        tg.onEvent('expand', function() {
+            console.log("WebApp expanded, скрываем руку");
+            hand.classList.add('hidden'); // Скрываем руку после разворачивания
+        });
+
+        // Если WebApp не развернут, показываем руку
+        if (!tg.isExpanded) {
+            hand.classList.remove('hidden');
         }
 
-        updateBalance();
+        // Запрос на автоматическое разворачивание WebApp, если необходимо
+        tg.expand();
     });
-
-    // Обработчик для кнопки закрытия
-    document.getElementById('close-btn').addEventListener('click', function() {
-        if (tg) {
-            tg.close();
-        } else {
-            console.log('Telegram WebApp не ініціалізований або викликається не з Telegram.');
-        }
-    });
-
-    // Установка имени пользователя
-    const urlParams = new URLSearchParams(window.location.search);
-    const username = urlParams.get('username') || 'Гість';
-    document.getElementById('username').textContent = username;
-
-    // Анимация исчезновения руки
-    var hand = document.getElementById('hand-container');
-
-    // Проверяем, если Telegram WebApp разворачивается
-    tg.onEvent('expand', function() {
-        console.log("WebApp expanded, скрываем руку");
-        hand.classList.add('hidden'); // Скрываем руку после разворачивания
-    });
-
-    // Показать руку, если WebApp еще не развернут
-    if (!tg.isExpanded) {
-        hand.classList.remove('hidden');
-    }
-
-    // Запрос на автоматическое разворачивание WebApp
-    tg.expand(); // Принудительно разворачиваем окно при загрузке, если это требуется
-});
-
 </script>
+
 
 </body>
 </html>
