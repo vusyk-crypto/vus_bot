@@ -271,20 +271,19 @@
         // Инициализация элемента с рукой
         var hand = document.getElementById('hand-container');
 
-        // Событие при разворачивании WebApp
-        tg.onEvent('expand', function() {
-            console.log("WebApp expanded, скрываем руку");
-            hand.classList.add('hidden'); // Скрываем руку
-        });
-
-        // Проверяем, если WebApp уже развернут
+        // Скрываем руку, если WebApp уже развернут
         if (tg.isExpanded) {
-            hand.classList.add('hidden'); // Скрываем руку, если WebApp уже развернут
+            hand.classList.add('hidden'); 
         } else {
-            hand.classList.remove('hidden'); // Если не развернут, показываем руку
+            hand.classList.remove('hidden'); 
         }
 
-        // Код для кнопки получения монет ОСТАВЛЯЕМ БЕЗ ИЗМЕНЕНИЙ
+        // Скрываем руку, когда WebApp разворачивается
+        tg.onEvent('expand', function() {
+            hand.classList.add('hidden'); 
+        });
+
+        // ОСТАВЛЯЕМ ЛОГИКУ ДЛЯ КНОПКИ "ОТРИМАТИ МОНЕТИ" БЕЗ ИЗМЕНЕНИЙ
         document.getElementById('get-coins-btn').addEventListener('click', function () {
             let balanceSection = document.getElementById('balance-section');
             let balanceElement = document.getElementById('balance');
@@ -293,7 +292,7 @@
 
             let startTime = Date.now();
             let duration = 1000;
-            let targetBalance = 50;
+            let targetBalance = 5; // Исправляю на 5 VUS, как ты просил
 
             function updateBalance() {
                 let currentTime = Date.now();
@@ -302,25 +301,21 @@
                 if (elapsedTime < duration) {
                     let progress = elapsedTime / duration;
                     let currentBalance = Math.round(progress * targetBalance);
-                    balanceElement.textContent = currentBalance;
+                    balanceElement.textContent = currentBalance + " VUS";
                     requestAnimationFrame(updateBalance);
                 } else {
-                    balanceElement.textContent = targetBalance;
-                    console.log('Баланс успішно оновлено');
+                    balanceElement.textContent = targetBalance + " VUS";
+                    console.log('Баланс успешно обновлен');
                     
-                    // Видаляємо клас анімації, якщо він вже є
+                    // Анимация при достижении цели
                     balanceElement.classList.remove('animate-pulse');
-                    
-                    // Форсуємо перерисовку DOM
                     void balanceElement.offsetWidth;
-                    
-                    // Додаємо клас анімації
                     balanceElement.classList.add('animate-pulse');
                     
-                    // Змінюємо колір на сірий після завершення анімації
+                    // Изменение цвета после анимации
                     setTimeout(() => {
-                        balanceElement.style.color = '#808080'; // Сірий колір
-                    }, 1000); // Чекаємо 1 секунду (тривалість анімації)
+                        balanceElement.style.color = '#808080'; // Серый цвет
+                    }, 1000);
                 }
             }
 
@@ -332,7 +327,7 @@
             if (tg) {
                 tg.close();
             } else {
-                console.log('Telegram WebApp не ініціалізований або викликається не з Telegram.');
+                console.log('Telegram WebApp не инициализирован или вызван не из Telegram.');
             }
         });
 
@@ -342,6 +337,7 @@
         document.getElementById('username').textContent = username;
     });
 </script>
+
 
 
 
