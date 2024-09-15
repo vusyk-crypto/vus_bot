@@ -155,7 +155,25 @@
 		    background-color: #28a745; /* Зелений колір */
 		}
 		
-		
+		.invite-friends-btn {
+        display: block;
+        width: 80%;
+        max-width: 300px;
+        margin: 20px auto;
+        padding: 15px 20px;
+        font-size: 18px;
+        font-weight: bold;
+        text-align: center;
+        color: white;
+        background: linear-gradient(to right, #007bff, #0056b3);
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: transform 0.3s ease;
+        }
+	   .invite-friends-btn:hover {
+        transform: scale(1.05);
+        }
     </style>
 </head>
 <body>
@@ -208,6 +226,8 @@
             <span class="spacer"></span>
             <button>Claim</button>
         </div>
+		<br>
+		<button class="invite-friends-btn">INVITE FRIENDS</button>
         
     </div>
 
