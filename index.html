@@ -12,7 +12,7 @@
             padding: 0;
             background-color: #f0f0f0;
             color: black;
-            position: relative; /* Додано для модального вікна */
+            position: relative;
         }
 
         /* Основний контент */
@@ -20,7 +20,7 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
-            min-height: 100vh; /* Змінено з height на min-height */
+            min-height: 100vh;
         }
 
         #top-menu {
@@ -58,16 +58,16 @@
         }
 
         #logo-container {
-            width: 240px; /* Налаштуйте розмір за потребою */
+            width: 240px;
             height: 240px;
-            margin: 60px auto 10px auto; /* Додано верхній відступ для відступу від меню */
+            margin: 60px auto 10px auto;
         }
 
         #logo {
             width: 100%;
             height: 100%;
             object-fit: contain;
-            cursor: pointer; /* Змінює курсор на руку при наведенні */
+            cursor: pointer;
         }
 
         #username {
@@ -84,7 +84,7 @@
         }
 
         #balance-section span {
-            color: #333333; 
+            color: #333333;
         }
 
         #balance {
@@ -198,7 +198,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.5); /* Напівпрозорий чорний фон */
+            background-color: rgba(0, 0, 0, 0.5);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -212,7 +212,7 @@
             font-size: 24px;
             color: black;
             text-align: center;
-            text-transform: uppercase; /* Перетворює текст у верхній регістр */
+            text-transform: uppercase;
             max-width: 80%;
             box-sizing: border-box;
         }
@@ -237,7 +237,7 @@
 
         .blur {
             filter: blur(5px);
-            pointer-events: none; /* Забороняє взаємодію з розмитим контентом */
+            pointer-events: none;
         }
     </style>
 </head>
@@ -255,15 +255,14 @@
             </a>
 
             <a href="#" style="text-decoration: none; text-align: center;">
-                <img src="three-dots.png" alt="Про проект" style="width: 24px; height: 24px;">
+                <img src="three-dots.png" alt="Меню" style="width: 24px; height: 24px;">
             </a>
         </div>
-        
 
         <div id="logo-container">
             <img id="logo" src="vus.png" alt="VUS Logo">
         </div>
-        
+
         <!-- Рука для свапа -->
         <div id="hand-container">
             <img id="hand" src="hand-arrow.png" alt="Swipe up">
@@ -279,17 +278,17 @@
         <button id="get-coins-btn">Отримати монети</button>
 
         <nav style="text-align: center;">
-            <a href="#" class="active" style="display: block; text-decoration: none; color: #007bff;">
+            <a href="index.html" class="active" style="display: block; text-decoration: none; color: #007bff;">
                 <img src="home.png" alt="Home" style="width: 24px; height: 24px;">
                 <br>
                 Home
             </a>
-            <a href="#" style="display: block; text-decoration: none;">
+            <a href="tasks.html" style="display: block; text-decoration: none;">
                 <img src="tasks.png" alt="Tasks" style="width: 24px; height: 24px;">
                 <br>
                 Tasks
             </a>
-            <a href="#" style="display: block; text-decoration: none;">
+            <a href="friends.html" style="display: block; text-decoration: none;">
                 <img src="friends.png" alt="Friends" style="width: 24px; height: 24px;">
                 <br>
                 Friends
@@ -313,9 +312,22 @@
     <script>
     document.addEventListener("DOMContentLoaded", function() {
 
-        // Отримуємо параметри з URL
-        const urlParams = new URLSearchParams(window.location.search);
-        const username = urlParams.get('username') || 'Гість';
+        // Функція для отримання параметра з URL
+        function getUsernameFromUrl() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get('username');
+        }
+
+        // Отримуємо ім'я користувача з URL або `localStorage`
+        let username = getUsernameFromUrl();
+
+        if (username) {
+            // Зберігаємо ім'я користувача в `localStorage`
+            localStorage.setItem('username', username);
+        } else {
+            // Якщо немає в URL, намагаємося отримати з `localStorage`
+            username = localStorage.getItem('username') || 'Гість';
+        }
 
         // Відображаємо ім'я користувача на сторінці
         document.getElementById('username').textContent = username;
@@ -488,4 +500,3 @@
     </script>
 </body>
 </html>
-
