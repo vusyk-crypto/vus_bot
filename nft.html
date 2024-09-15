@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NFT - VUS Project</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+            color: black;
+            position: relative;
+            min-height: 100vh;
+        }
+
+        /* Стилі для логотипу */
+        #logo-container {
+            width: 168px; /* 30% менше від попереднього розміру */
+            height: 168px;
+            margin: 40px auto 10px auto; /* Трохи вище */
+        }
+
+        #logo {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        /* Стиль для заголовка "NFT" */
+        h1 {
+            font-size: 24px;
+            color: #4d4d4d; /* Темно-сірий колір */
+            margin-top: 20px;
+        }
+
+        /* Стилі для блоку з повідомленням */
+        #nft-message {
+            background-color: #e0e0e0; /* Сірий фон */
+            color: #000; /* Чорний текст */
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 80%;
+            text-align: center;
+            font-size: 18px;
+            border-radius: 5px;
+        }
+
+        /* Стилі для кнопки "СПІВПРАЦЯ" */
+        #collaboration-btn {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            background-color: #007bff; /* Синій колір */
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        #collaboration-btn:hover {
+            background-color: #0056b3;
+        }
+
+        /* Стилі для нижнього меню */
+        nav {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: #ffffff;
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: black;
+            font-size: 18px;
+            display: block;
+        }
+
+        nav a.active {
+            color: #007bff;
+        }
+
+        nav a.active img {
+            filter: invert(35%) sepia(100%) saturate(600%) hue-rotate(180deg) brightness(95%) contrast(85%);
+        }
+
+        /* Відступ для контенту, щоб не перекривався меню */
+        .content {
+            padding-bottom: 80px; /* Висота нижнього меню */
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <div id="logo-container">
+            <img id="logo" src="vus.png" alt="VUS Logo">
+        </div>
+
+        <h1>NFT</h1>
+
+        <div id="nft-message">
+            Скоро тут будуть NFT для всіх активних криптоспортсменів
+        </div>
+
+        <button id="collaboration-btn">СПІВПРАЦЯ</button>
+    </div>
+
+    <nav>
+        <a href="home.html">
+            <img src="home.png" alt="Home" style="width: 24px; height: 24px;">
+            <br>
+            Home
+        </a>
+        <a href="tasks.html">
+            <img src="tasks.png" alt="Tasks" style="width: 24px; height: 24px;">
+            <br>
+            Tasks
+        </a>
+        <a href="friends.html">
+            <img src="friends.png" alt="Friends" style="width: 24px; height: 24px;">
+            <br>
+            Friends
+        </a>
+        <a href="nft.html" class="active">
+            <img src="nft.png" alt="NFT" style="width: 24px; height: 24px;">
+            <br>
+            NFT
+        </a>
+    </nav>
+</body>
+</html>
