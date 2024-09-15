@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tasks - VUS Project</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+            color: black;
+            position: relative;
+            min-height: 100vh;
+        }
+
+        /* Стилі для верхнього меню */
+        #top-menu {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+
+        #top-menu a {
+            font-size: 18px;
+            text-decoration: none;
+            color: black;
+            padding: 0 20px;
+        }
+
+        #top-menu div {
+            flex-grow: 1;
+            text-align: center;
+        }
+
+        #top-menu strong {
+            font-size: 24px;
+        }
+
+        #top-menu span {
+            font-size: 16px;
+            color: #808080;
+        }
+
+        /* Відступ для контенту, щоб не перекривався верхнім та нижнім меню */
+        .content {
+            padding-top: 60px; /* Висота верхнього меню */
+            padding-bottom: 80px; /* Висота нижнього меню */
+        }
+
+        /* Стилі для логотипу */
+        #logo-container {
+            width: 168px; /* 30% менше від початкового розміру */
+            height: 168px;
+            margin: 20px auto 10px auto; /* Трохи вище */
+        }
+
+        #logo {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        /* Стиль для заголовка "Умова №2" */
+        h1 {
+            font-size: 24px;
+            color: #4d4d4d; /* Темно-сірий колір */
+            margin-top: 20px;
+        }
+
+        /* Стилі для рядків завдань */
+        .task-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 10px auto;
+            max-width: 80%;
+            font-size: 18px;
+        }
+
+        .task-row img {
+            width: 24px;
+            height: 24px;
+            margin-right: 10px;
+        }
+
+        .task-row span {
+            margin: 0 10px;
+        }
+
+        .task-row button {
+    padding: 5px 10px;
+    background-color: #28a745; /* Зелений колір */
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.task-row button:hover {
+    background-color: #218838; /* Темніший зелений для ховера */
+}
+
+        /* Стилі для нижнього меню */
+        nav {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: #ffffff;
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: black;
+            font-size: 18px;
+            display: block;
+            text-align: center;
+        }
+
+        nav a.active {
+            color: #007bff;
+        }
+
+        nav a.active img {
+            filter: invert(35%) sepia(100%) saturate(600%) hue-rotate(180deg) brightness(95%) contrast(85%);
+        }
+
+        nav img {
+            width: 24px;
+            height: 24px;
+        }
+
+        /* Додатковий відступ між елементами в рядку */
+        .task-row .spacer {
+            width: 20px; /* Ширина двох пробілів приблизно */
+        }
+		
+		button {
+		    background-color: #28a745; /* Зелений колір */
+		}
+    </style>
+</head>
+<body>
+    <!-- Верхнє меню -->
+    <div id="top-menu">
+        <a href="#" id="close-btn" style="text-decoration: none; text-align: center;">
+            <img src="closed.png" alt="Закрити" style="width: 24px; height: 24px;">
+        </a>
+        <a href="#" style="text-decoration: none; flex-grow: 1; text-align: center;">
+            <strong style="font-size: 24px; color: black;">VUS</strong>
+            <br>
+            <span style="font-size: 16px; color: #808080;">Про проєкт</span>
+        </a>
+        <a href="#" style="text-decoration: none; text-align: center;">
+            <img src="three-dots.png" alt="Меню" style="width: 24px; height: 24px;">
+        </a>
+    </div>
+
+    <div class="content">
+        <div id="logo-container">
+            <img id="logo" src="vus.png" alt="VUS Logo">
+        </div>
+
+        <h1>Умова №3</h1>
+
+        <!-- Рядки завдань -->
+        <div class="task-row">
+            <img src="friends.png" alt="friends">
+            <span>Invite</span>
+            <span class="spacer"></span>
+            <span>+10</span>
+            <span class="spacer"></span>
+            <button>Claim</button>
+        </div>
+        <br>
+        <div class="task-row">
+            <img src="friends.png" alt="friends">
+            <span>Invite</span>
+            <span class="spacer"></span>
+            <span>+10</span>
+            <span class="spacer"></span>
+            <button>Claim</button>
+        </div>
+        <br>
+        <div class="task-row">
+            <img src="friends.png" alt="friends">
+            <span>Invite</span>
+            <span class="spacer"></span>
+            <span>+10</span>
+            <span class="spacer"></span>
+            <button>Claim</button>
+        </div>
+        
+    </div>
+
+    <nav>
+        <a href="index.html">
+            <img src="home.png" alt="Home">
+            <br>
+            Home
+        </a>
+        <a href="tasks.html">
+            <img src="tasks.png" alt="Tasks">
+            <br>
+            Tasks
+        </a>
+        <a href="friends.html" class="active">
+            <img src="friends.png" alt="Friends">
+            <br>
+            Friends
+        </a>
+        <a href="nft.html">
+            <img src="nft.png" alt="NFT">
+            <br>
+            NFT
+        </a>
+    </nav>
+
+    <!-- Ваш скрипт (якщо потрібно) -->
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+
+        // Отримуємо ім'я користувача з `localStorage`
+        const username = localStorage.getItem('username') || 'Гість';
+
+        // Відображаємо ім'я користувача на сторінці (якщо потрібно)
+        // Якщо потрібно відобразити ім'я користувача, додайте елемент з id="username" в HTML
+
+        // Ваш інший код для сторінки `tasks.html` (якщо є)
+
+    });
+    </script>
+</body>
+</html>
