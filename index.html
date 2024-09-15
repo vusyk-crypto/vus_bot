@@ -272,7 +272,7 @@
         <div id="username"></div>
 
         <div id="balance-section">
-            <span>Ви отримали: </span><span id="balance">0!</span>
+            <span>Ви отримали VUS </span><span id="balance">0!</span>
         </div>
 
         <button id="get-coins-btn">Отримати монети</button>
@@ -432,6 +432,25 @@
             showHand(); // Показуємо руку, якщо WebApp не завантажився
         });
 
+        // --- Зміни для збереження стану отримання монет ---
+
+        // Функція для перевірки чи отримані монети
+        function checkCoinsReceived() {
+            const coinsReceived = localStorage.getItem('coinsReceived');
+            if (coinsReceived === 'true') {
+                balanceSection.style.display = 'block';
+                getCoinsBtn.style.display = 'none';
+                balanceElement.textContent = '50 VUS';
+            } else {
+                balanceSection.style.display = 'none';
+                getCoinsBtn.style.display = 'block';
+            }
+        }
+
+        // Викликаємо функцію при завантаженні сторінки
+        checkCoinsReceived();
+
+        // Обробник події для кнопки "Отримати монети"
         getCoinsBtn.addEventListener('click', function () {
             console.log("Get coins button clicked");
             balanceSection.style.display = 'block';
@@ -461,11 +480,16 @@
                     setTimeout(() => {
                         balanceElement.style.color = '#808080';
                     }, 1000);
+
+                    // Зберігаємо стан отримання монет в localStorage
+                    localStorage.setItem('coinsReceived', 'true');
                 }
             }
 
             updateBalance();
         });
+
+        // --- Кінець змін для збереження стану отримання монет ---
 
         // Отримуємо елементи для модального вікна
         const logo = document.getElementById('logo');
@@ -500,3 +524,4 @@
     </script>
 </body>
 </html>
+
