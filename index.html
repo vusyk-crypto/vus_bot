@@ -52,28 +52,27 @@
             color: #808080;
         }
 
-     #logo-container {
-    width: 320px;
-    height: 320px;
-    padding: 15px; /* Налаштуйте товщину кромки */
+    #logo-container {
+    width: 240px;
+    height: 240px;
+    padding: 0; /* Зменшимо padding для рівномірної товщини кромки */
     background: linear-gradient(to right, #007bff, #00d4ff);
     border-radius: 50%;
-    box-sizing: border-box;
+    box-sizing: border-box; /* Додамо для коректних розмірів */
     display: flex;
-    justify-content: center; /* Центрування по горизонталі */
-    align-items: center;     /* Центрування по вертикалі */
+    justify-content: center;
+    align-items: center;
     margin: 0 auto 10px auto;
     overflow: hidden;
-    position: relative;
 }
 
 #logo {
     width: 100%;
     height: 100%;
     border-radius: 50%;
-    object-fit: cover;
-    display: block;
+    object-fit: cover; /* Забезпечить правильне масштабування зображення */
 }
+
 
 
 
