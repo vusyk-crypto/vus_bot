@@ -312,22 +312,42 @@
 
     <script>
     document.addEventListener("DOMContentLoaded", function() {
-        // Ініціалізуємо Telegram Web App
-        let tg = window.Telegram.WebApp;
 
-        // Отримуємо ім'я користувача з Telegram Web App
-        const username = tg.initDataUnsafe.user?.username || 'Гість';
+        // Отримуємо параметри з URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const username = urlParams.get('username') || 'Гість';
 
         // Відображаємо ім'я користувача на сторінці
         document.getElementById('username').textContent = username;
         console.log("Username set:", username);
 
-        // Ваш існуючий код
-        let mainContent = document.getElementById('main-content'); // Отримуємо основний контент
-        let hand = document.getElementById('hand-container');
-        let balanceSection = document.getElementById('balance-section');
-        let balanceElement = document.getElementById('balance');
-        let getCoinsBtn = document.getElementById('get-coins-btn');
+        let tg = window.Telegram?.WebApp;
+
+        function waitForWebApp() {
+            return new Promise((resolve, reject) => {
+                if (window.Telegram?.WebApp) {
+                    resolve(window.Telegram.WebApp);
+                } else {
+                    const checkInterval = setInterval(() => {
+                        if (window.Telegram?.WebApp) {
+                            clearInterval(checkInterval);
+                            resolve(window.Telegram.WebApp);
+                        }
+                    }, 100);
+
+                    setTimeout(() => {
+                        clearInterval(checkInterval);
+                        reject(new Error("WebApp не завантажився"));
+                    }, 5000);
+                }
+            });
+        }
+
+        const mainContent = document.getElementById('main-content');
+        const hand = document.getElementById('hand-container');
+        const balanceSection = document.getElementById('balance-section');
+        const balanceElement = document.getElementById('balance');
+        const getCoinsBtn = document.getElementById('get-coins-btn');
 
         function hideHand() {
             hand.classList.add('hidden');
@@ -360,12 +380,14 @@
             if (tg) checkWebAppState(tg);
         });
 
-        if (tg) {
-            checkWebAppState(tg);
+        waitForWebApp().then((webApp) => {
+            console.log("WebApp initialized:", webApp);
+            tg = webApp;
+            checkWebAppState(webApp);
 
-            tg.onEvent('viewportChanged', () => {
-                console.log("Viewport changed. New isExpanded state:", tg.isExpanded);
-                checkWebAppState(tg);
+            webApp.onEvent('viewportChanged', () => {
+                console.log("Viewport changed. New isExpanded state:", webApp.isExpanded);
+                checkWebAppState(webApp);
             });
 
             observer.observe(document.body, {
@@ -376,29 +398,28 @@
 
             document.getElementById('close-btn').addEventListener('click', function() {
                 console.log("Close button clicked");
-                console.log("WebApp object:", tg);
-                if (tg.close) {
+                console.log("WebApp object:", webApp);
+                if (webApp?.close) {
                     console.log("Attempting to close WebApp");
-                    tg.close();
+                    webApp.close();
                 } else {
                     console.log('WebApp.close is not available');
-                    if (tg.BackButton) {
-                        tg.BackButton.show();
-                        tg.BackButton.onClick(() => {
+                    if (webApp?.BackButton) {
+                        webApp.BackButton.show();
+                        webApp.BackButton.onClick(() => {
                             console.log("Back button pressed");
-                            tg.close();
+                            webApp.close();
                         });
                     } else {
                         console.log("BackButton is not available");
                     }
                 }
             });
-        } else {
-            console.error("Error initializing WebApp");
-            showHand(); // Показываем интерфейс, если WebApp не загрузился
-        }
+        }).catch((error) => {
+            console.error("Error initializing WebApp:", error);
+            showHand(); // Показуємо руку, якщо WebApp не завантажився
+        });
 
-        // Обробник події для кнопки "Отримати монети"
         getCoinsBtn.addEventListener('click', function () {
             console.log("Get coins button clicked");
             balanceSection.style.display = 'block';
@@ -419,7 +440,7 @@
                     requestAnimationFrame(updateBalance);
                 } else {
                     balanceElement.textContent = targetBalance + " VUS";
-                    console.log('Баланс успешно обновлен');
+                    console.log('Баланс успішно оновлено');
 
                     balanceElement.classList.remove('animate-pulse');
                     void balanceElement.offsetWidth;
@@ -438,7 +459,6 @@
         const logo = document.getElementById('logo');
         const modal = document.getElementById('modal');
         const modalButton = document.getElementById('modal-button');
-        // Замість body використовуємо mainContent
         const contentToBlur = document.getElementById('main-content');
 
         // Додаємо обробник події для кліку на логотип
@@ -451,7 +471,7 @@
 
         // Додаємо обробник події для кліку на кнопку "Повернутися"
         modalButton.addEventListener('click', function(event) {
-            event.stopPropagation(); // Зупиняємо подію, щоб не спрацював клік на модальному вікні
+            event.stopPropagation();
             // Прибираємо клас блюру
             contentToBlur.classList.remove('blur');
             // Ховаємо модальне вікно
@@ -468,3 +488,4 @@
     </script>
 </body>
 </html>
+
