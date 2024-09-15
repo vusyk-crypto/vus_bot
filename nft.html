@@ -187,6 +187,21 @@
             NFT
         </a>
     </nav>
+	
+	    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+
+        // Отримуємо ім'я користувача з `localStorage`
+        const username = localStorage.getItem('username') || 'Гість';
+
+        // Відображаємо ім'я користувача на сторінці
+        document.getElementById('username').textContent = username;
+        console.log("Username set:", username);
+
+        // Ваш інший код для сторінки `nft.html` (якщо є)
+
+    });
+    </script>
 </body>
 </html>
 
