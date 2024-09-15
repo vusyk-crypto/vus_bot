@@ -12,11 +12,16 @@
             padding: 0;
             background-color: #f0f0f0;
             color: black;
+            /* Видалено flex-властивості з body */
+            position: relative; /* Додано для модального вікна */
+        }
+
+        /* Основний контент */
+        #main-content {
             display: flex;
             flex-direction: column;
             justify-content: center;
-            height: 100vh;
-            position: relative; /* Додано для модального вікна */
+            min-height: 100vh; /* Змінено з height на min-height */
         }
 
         #top-menu {
@@ -56,7 +61,7 @@
         #logo-container {
             width: 240px; /* Налаштуйте розмір за потребою */
             height: 240px;
-            margin: 0 auto 10px auto;
+            margin: 60px auto 10px auto; /* Додано верхній відступ для відступу від меню */
         }
 
         #logo {
@@ -238,62 +243,65 @@
     </style>
 </head>
 <body>
-    <div id="top-menu">
-        <a href="#" id="close-btn" style="text-decoration: none; text-align: center;">
-            <img src="closed.png" alt="Закрити" style="width: 24px; height: 24px;">
-        </a>
-        <a href="#" style="text-decoration: none; flex-grow: 1; text-align: center;">
-            <strong style="font-size: 24px; color: black;">VUS</strong>
-            <br>
-            <span style="font-size: 16px; color: #808080;">Про проєкт</span>
-        </a>
+    <!-- Основний контент -->
+    <div id="main-content">
+        <div id="top-menu">
+            <a href="#" id="close-btn" style="text-decoration: none; text-align: center;">
+                <img src="closed.png" alt="Закрити" style="width: 24px; height: 24px;">
+            </a>
+            <a href="#" style="text-decoration: none; flex-grow: 1; text-align: center;">
+                <strong style="font-size: 24px; color: black;">VUS</strong>
+                <br>
+                <span style="font-size: 16px; color: #808080;">Про проєкт</span>
+            </a>
 
-        <a href="#" style="text-decoration: none; text-align: center;">
-            <img src="three-dots.png" alt="Про проект" style="width: 24px; height: 24px;">
-        </a>
-    </div>
-    
+            <a href="#" style="text-decoration: none; text-align: center;">
+                <img src="three-dots.png" alt="Про проект" style="width: 24px; height: 24px;">
+            </a>
+        </div>
+        
 
-    <div id="logo-container">
-        <img id="logo" src="vus.png" alt="VUS Logo">
-    </div>
-    
-    <!-- Рука для свапа -->
-    <div id="hand-container">
-        <img id="hand" src="hand-arrow.png" alt="Swipe up">
-    </div>
-    <!-- Кінець руки для свапа -->
+        <div id="logo-container">
+            <img id="logo" src="vus.png" alt="VUS Logo">
+        </div>
+        
+        <!-- Рука для свапа -->
+        <div id="hand-container">
+            <img id="hand" src="hand-arrow.png" alt="Swipe up">
+        </div>
+        <!-- Кінець руки для свапа -->
 
-    <div id="username"></div>
+        <div id="username"></div>
 
-    <div id="balance-section">
-        <span>Ви отримали VUS </span><span id="balance">0!</span>
-    </div>
+        <div id="balance-section">
+            <span>Ви отримали VUS </span><span id="balance">0!</span>
+        </div>
 
-    <button id="get-coins-btn">Отримати монети</button>
+        <button id="get-coins-btn">Отримати монети</button>
 
-    <nav style="text-align: center;">
-        <a href="#" class="active" style="display: block; text-decoration: none; color: #007bff;">
-            <img src="home.png" alt="Home" style="width: 24px; height: 24px;">
-            <br>
-            Home
-        </a>
-        <a href="#" style="display: block; text-decoration: none;">
-            <img src="tasks.png" alt="Tasks" style="width: 24px; height: 24px;">
-            <br>
-            Tasks
-        </a>
-        <a href="#" style="display: block; text-decoration: none;">
-            <img src="friends.png" alt="Friends" style="width: 24px; height: 24px;">
-            <br>
-            Friends
-        </a>
-        <a href="#" style="display: block; text-decoration: none;">
-            <img src="nft.png" alt="NFT" style="width: 24px; height: 24px;">
-            <br>
-            NFT
-        </a>
-    </nav>
+        <nav style="text-align: center;">
+            <a href="#" class="active" style="display: block; text-decoration: none; color: #007bff;">
+                <img src="home.png" alt="Home" style="width: 24px; height: 24px;">
+                <br>
+                Home
+            </a>
+            <a href="#" style="display: block; text-decoration: none;">
+                <img src="tasks.png" alt="Tasks" style="width: 24px; height: 24px;">
+                <br>
+                Tasks
+            </a>
+            <a href="#" style="display: block; text-decoration: none;">
+                <img src="friends.png" alt="Friends" style="width: 24px; height: 24px;">
+                <br>
+                Friends
+            </a>
+            <a href="#" style="display: block; text-decoration: none;">
+                <img src="nft.png" alt="NFT" style="width: 24px; height: 24px;">
+                <br>
+                NFT
+            </a>
+        </nav>
+    </div> <!-- Кінець основного контенту -->
 
     <!-- Модальне вікно -->
     <div id="modal" class="hidden">
@@ -327,6 +335,7 @@
             });
         }
 
+        const mainContent = document.getElementById('main-content'); // Отримуємо основний контент
         const hand = document.getElementById('hand-container');
         const balanceSection = document.getElementById('balance-section');
         const balanceElement = document.getElementById('balance');
@@ -447,12 +456,13 @@
         const logo = document.getElementById('logo');
         const modal = document.getElementById('modal');
         const modalButton = document.getElementById('modal-button');
-        const body = document.body;
+        // Замість body використовуємо mainContent
+        const contentToBlur = document.getElementById('main-content');
 
         // Додаємо обробник події для кліку на логотип
         logo.addEventListener('click', function() {
             // Додаємо клас для блюру основного контенту
-            body.classList.add('blur');
+            contentToBlur.classList.add('blur');
             // Показуємо модальне вікно
             modal.classList.remove('hidden');
         });
@@ -461,7 +471,7 @@
         modalButton.addEventListener('click', function(event) {
             event.stopPropagation(); // Зупиняємо подію, щоб не спрацював клік на модальному вікні
             // Прибираємо клас блюру
-            body.classList.remove('blur');
+            contentToBlur.classList.remove('blur');
             // Ховаємо модальне вікно
             modal.classList.add('hidden');
         });
@@ -476,5 +486,6 @@
     </script>
 </body>
 </html>
+
 
 
