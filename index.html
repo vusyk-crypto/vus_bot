@@ -52,14 +52,14 @@
             color: #808080;
         }
 
-        #logo-container {
-    width: 50vw;
-    max-width: 240px;
-    height: auto;
+      #logo-container {
+    width: 240px;
+    height: 240px;
+    max-width: 50vw;
+    max-height: 50vw;
     padding: 2px;
     background: linear-gradient(to right, #007bff, #00d4ff);
     border-radius: 50%;
-    aspect-ratio: 1 / 1;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -71,8 +71,9 @@
     width: 100%;
     height: 100%;
     border-radius: 50%;
-    object-fit: cover;
+    object-fit: contain;
 }
+
 
 
         #username {
