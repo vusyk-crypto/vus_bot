@@ -16,11 +16,52 @@
             min-height: 100vh;
         }
 
+        /* Стилі для верхнього меню */
+        #top-menu {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+
+        #top-menu a {
+            font-size: 18px;
+            text-decoration: none;
+            color: black;
+            padding: 0 20px;
+        }
+
+        #top-menu div {
+            flex-grow: 1;
+            text-align: center;
+        }
+
+        #top-menu strong {
+            font-size: 24px;
+        }
+
+        #top-menu span {
+            font-size: 16px;
+            color: #808080;
+        }
+
+        /* Відступ для контенту, щоб не перекривався верхнім меню */
+        .content {
+            padding-top: 60px; /* Висота верхнього меню */
+            padding-bottom: 80px; /* Висота нижнього меню */
+        }
+
         /* Стилі для логотипу */
         #logo-container {
             width: 168px; /* 30% менше від попереднього розміру */
             height: 168px;
-            margin: 40px auto 10px auto; /* Трохи вище */
+            margin: 20px auto 10px auto; /* Трохи вище */
         }
 
         #logo {
@@ -92,14 +133,24 @@
         nav a.active img {
             filter: invert(35%) sepia(100%) saturate(600%) hue-rotate(180deg) brightness(95%) contrast(85%);
         }
-
-        /* Відступ для контенту, щоб не перекривався меню */
-        .content {
-            padding-bottom: 80px; /* Висота нижнього меню */
-        }
     </style>
 </head>
 <body>
+    <!-- Верхнє меню -->
+    <div id="top-menu">
+        <a href="#" id="close-btn" style="text-decoration: none; text-align: center;">
+            <img src="closed.png" alt="Закрити" style="width: 24px; height: 24px;">
+        </a>
+        <a href="#" style="text-decoration: none; flex-grow: 1; text-align: center;">
+            <strong style="font-size: 24px; color: black;">VUS</strong>
+            <br>
+            <span style="font-size: 16px; color: #808080;">Про проєкт</span>
+        </a>
+        <a href="#" style="text-decoration: none; text-align: center;">
+            <img src="three-dots.png" alt="Меню" style="width: 24px; height: 24px;">
+        </a>
+    </div>
+
     <div class="content">
         <div id="logo-container">
             <img id="logo" src="vus.png" alt="VUS Logo">
@@ -138,3 +189,4 @@
     </nav>
 </body>
 </html>
+
