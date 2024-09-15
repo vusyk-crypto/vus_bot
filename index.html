@@ -313,6 +313,16 @@
 
     <script>
     document.addEventListener("DOMContentLoaded", function() {
+	
+	// Отримуємо параметри з URL
+const urlParams = new URLSearchParams(window.location.search);
+const username = urlParams.get('username') || 'Гість';
+
+// Відображаємо ім'я користувача на сторінці
+document.getElementById('username').textContent = username;
+console.log("Username set:", username);
+
+
         let tg = window.Telegram?.WebApp;
 
         function waitForWebApp() {
