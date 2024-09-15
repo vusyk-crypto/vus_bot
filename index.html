@@ -16,6 +16,7 @@
             flex-direction: column;
             justify-content: center;
             height: 100vh;
+            position: relative; /* Додано для модального вікна */
         }
 
         #top-menu {
@@ -62,8 +63,8 @@
             width: 100%;
             height: 100%;
             object-fit: contain;
+            cursor: pointer; /* Змінює курсор на руку при наведенні */
         }
-
 
         #username {
             font-size: 20px;
@@ -186,6 +187,34 @@
             display: none;
         }
 
+        /* Стилі для модального вікна */
+        #modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5); /* Напівпрозорий чорний фон */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+        }
+
+        #modal-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            font-size: 24px;
+            color: black;
+            text-align: center;
+            text-transform: uppercase; /* Перетворює текст у верхній регістр */
+        }
+
+        .blur {
+            filter: blur(5px);
+            pointer-events: none; /* Забороняє взаємодію з розмитим контентом */
+        }
     </style>
 </head>
 <body>
@@ -203,17 +232,17 @@
             <img src="three-dots.png" alt="Про проект" style="width: 24px; height: 24px;">
         </a>
     </div>
-	
+    
 
     <div id="logo-container">
         <img id="logo" src="vus.png" alt="VUS Logo">
     </div>
-	
-	<!-- Рука для свапа -->
-	<div id="hand-container">
+    
+    <!-- Рука для свапа -->
+    <div id="hand-container">
         <img id="hand" src="hand-arrow.png" alt="Swipe up">
     </div>
-    <!-- Конец руки для свапа -->
+    <!-- Кінець руки для свапа -->
 
     <div id="username"></div>
 
@@ -246,7 +275,14 @@
         </a>
     </nav>
 
-  <script>
+    <!-- Модальне вікно -->
+    <div id="modal" class="hidden">
+        <div id="modal-content">
+            ЩОБ БУТИ КРИПТОСПОРТСМЕНОМ ТРЕБА ЛИШЕ ЗАХОТІТИ
+        </div>
+    </div>
+
+    <script>
     document.addEventListener("DOMContentLoaded", function() {
         let tg = window.Telegram?.WebApp;
 
@@ -385,10 +421,30 @@
         const username = urlParams.get('username') || 'Гість';
         document.getElementById('username').textContent = username;
         console.log("Username set:", username);
+
+        // Отримуємо елементи для модального вікна
+        const logo = document.getElementById('logo');
+        const modal = document.getElementById('modal');
+        const body = document.body;
+
+        // Додаємо обробник події для кліку на логотип
+        logo.addEventListener('click', function() {
+            // Додаємо клас для блюру основного контенту
+            body.classList.add('blur');
+            // Показуємо модальне вікно
+            modal.classList.remove('hidden');
+        });
+
+        // Додаємо обробник події для кліку на модальне вікно, щоб його закрити
+        modal.addEventListener('click', function() {
+            // Прибираємо клас блюру
+            body.classList.remove('blur');
+            // Ховаємо модальне вікно
+            modal.classList.add('hidden');
+        });
     });
-</script>
-
-
+    </script>
 </body>
 </html>
+
 
