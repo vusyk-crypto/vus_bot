@@ -52,19 +52,19 @@
             color: #808080;
         }
 
-     /* CSS */
-#logo-container {
-    width: 320px; /* Збільште до бажаного розміру */
+     #logo-container {
+    width: 320px;
     height: 320px;
-    padding: 5px; /* Налаштуйте товщину кромки */
+    padding: 15px; /* Налаштуйте товщину кромки */
     background: linear-gradient(to right, #007bff, #00d4ff);
     border-radius: 50%;
-    box-sizing: border-box; 
+    box-sizing: border-box;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: center; /* Центрування по горизонталі */
+    align-items: center;     /* Центрування по вертикалі */
     margin: 0 auto 10px auto;
     overflow: hidden;
+    position: relative;
 }
 
 #logo {
@@ -72,7 +72,9 @@
     height: 100%;
     border-radius: 50%;
     object-fit: cover;
+    display: block;
 }
+
 
 
 
