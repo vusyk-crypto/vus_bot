@@ -209,6 +209,26 @@
             color: black;
             text-align: center;
             text-transform: uppercase; /* Перетворює текст у верхній регістр */
+            max-width: 80%;
+            box-sizing: border-box;
+        }
+
+        #modal-content p {
+            margin-bottom: 20px;
+        }
+
+        #modal-button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        #modal-button:hover {
+            background-color: #0056b3;
         }
 
         .blur {
@@ -278,7 +298,8 @@
     <!-- Модальне вікно -->
     <div id="modal" class="hidden">
         <div id="modal-content">
-            ЩОБ БУТИ КРИПТОСПОРТСМЕНОМ ТРЕБА ЛИШЕ ЗАХОТІТИ
+            <p>ЩОБ БУТИ КРИПТОСПОРТСМЕНОМ ТРЕБА ЛИШЕ ЗАХОТІТИ</p>
+            <button id="modal-button">Повернутися</button>
         </div>
     </div>
 
@@ -425,6 +446,7 @@
         // Отримуємо елементи для модального вікна
         const logo = document.getElementById('logo');
         const modal = document.getElementById('modal');
+        const modalButton = document.getElementById('modal-button');
         const body = document.body;
 
         // Додаємо обробник події для кліку на логотип
@@ -435,12 +457,20 @@
             modal.classList.remove('hidden');
         });
 
-        // Додаємо обробник події для кліку на модальне вікно, щоб його закрити
-        modal.addEventListener('click', function() {
+        // Додаємо обробник події для кліку на кнопку "Повернутися"
+        modalButton.addEventListener('click', function(event) {
+            event.stopPropagation(); // Зупиняємо подію, щоб не спрацював клік на модальному вікні
             // Прибираємо клас блюру
             body.classList.remove('blur');
             // Ховаємо модальне вікно
             modal.classList.add('hidden');
+        });
+
+        // Додаємо обробник події для кліку поза модальним контентом, щоб нічого не відбувалося
+        modal.addEventListener('click', function(event) {
+            if (event.target === modal) {
+                // Нічого не робимо або можна додати код, якщо потрібно
+            }
         });
     });
     </script>
