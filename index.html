@@ -12,7 +12,6 @@
             padding: 0;
             background-color: #f0f0f0;
             color: black;
-            /* Видалено flex-властивості з body */
             position: relative; /* Додано для модального вікна */
         }
 
@@ -313,43 +312,22 @@
 
     <script>
     document.addEventListener("DOMContentLoaded", function() {
-	
-	// Отримуємо параметри з URL
-const urlParams = new URLSearchParams(window.location.search);
-const username = urlParams.get('username') || 'Гість';
+        // Ініціалізуємо Telegram Web App
+        let tg = window.Telegram.WebApp;
 
-// Відображаємо ім'я користувача на сторінці
-document.getElementById('username').textContent = username;
-console.log("Username set:", username);
+        // Отримуємо ім'я користувача з Telegram Web App
+        const username = tg.initDataUnsafe.user?.username || 'Гість';
 
+        // Відображаємо ім'я користувача на сторінці
+        document.getElementById('username').textContent = username;
+        console.log("Username set:", username);
 
-        let tg = window.Telegram?.WebApp;
-
-        function waitForWebApp() {
-            return new Promise((resolve, reject) => { // Добавляем reject для обработки ошибок
-                if (window.Telegram?.WebApp) {
-                    resolve(window.Telegram.WebApp);
-                } else {
-                    const checkInterval = setInterval(() => {
-                        if (window.Telegram?.WebApp) {
-                            clearInterval(checkInterval);
-                            resolve(window.Telegram.WebApp);
-                        }
-                    }, 100);
-
-                    setTimeout(() => { // Добавляем тайм-аут на случай, если WebApp не появится
-                        clearInterval(checkInterval);
-                        reject(new Error("WebApp не загрузился")); // Отправляем ошибку, если WebApp не инициализировался
-                    }, 5000);
-                }
-            });
-        }
-
-        const mainContent = document.getElementById('main-content'); // Отримуємо основний контент
-        const hand = document.getElementById('hand-container');
-        const balanceSection = document.getElementById('balance-section');
-        const balanceElement = document.getElementById('balance');
-        const getCoinsBtn = document.getElementById('get-coins-btn');
+        // Ваш існуючий код
+        let mainContent = document.getElementById('main-content'); // Отримуємо основний контент
+        let hand = document.getElementById('hand-container');
+        let balanceSection = document.getElementById('balance-section');
+        let balanceElement = document.getElementById('balance');
+        let getCoinsBtn = document.getElementById('get-coins-btn');
 
         function hideHand() {
             hand.classList.add('hidden');
@@ -382,14 +360,12 @@ console.log("Username set:", username);
             if (tg) checkWebAppState(tg);
         });
 
-        waitForWebApp().then((webApp) => {
-            console.log("WebApp initialized:", webApp);
-            tg = webApp;
-            checkWebAppState(webApp);
+        if (tg) {
+            checkWebAppState(tg);
 
-            webApp.onEvent('viewportChanged', () => {
-                console.log("Viewport changed. New isExpanded state:", webApp.isExpanded);
-                checkWebAppState(webApp);
+            tg.onEvent('viewportChanged', () => {
+                console.log("Viewport changed. New isExpanded state:", tg.isExpanded);
+                checkWebAppState(tg);
             });
 
             observer.observe(document.body, {
@@ -400,28 +376,29 @@ console.log("Username set:", username);
 
             document.getElementById('close-btn').addEventListener('click', function() {
                 console.log("Close button clicked");
-                console.log("WebApp object:", webApp);
-                if (webApp?.close) {
+                console.log("WebApp object:", tg);
+                if (tg.close) {
                     console.log("Attempting to close WebApp");
-                    webApp.close();
+                    tg.close();
                 } else {
                     console.log('WebApp.close is not available');
-                    if (webApp?.BackButton) {
-                        webApp.BackButton.show();
-                        webApp.BackButton.onClick(() => {
+                    if (tg.BackButton) {
+                        tg.BackButton.show();
+                        tg.BackButton.onClick(() => {
                             console.log("Back button pressed");
-                            webApp.close();
+                            tg.close();
                         });
                     } else {
                         console.log("BackButton is not available");
                     }
                 }
             });
-        }).catch((error) => { // Добавляем обработку ошибки
-            console.error("Error initializing WebApp:", error);
+        } else {
+            console.error("Error initializing WebApp");
             showHand(); // Показываем интерфейс, если WebApp не загрузился
-        });
+        }
 
+        // Обробник події для кнопки "Отримати монети"
         getCoinsBtn.addEventListener('click', function () {
             console.log("Get coins button clicked");
             balanceSection.style.display = 'block';
@@ -457,11 +434,6 @@ console.log("Username set:", username);
             updateBalance();
         });
 
-        const urlParams = new URLSearchParams(window.location.search);
-        const username = urlParams.get('username') || 'Гість';
-        document.getElementById('username').textContent = username;
-        console.log("Username set:", username);
-
         // Отримуємо елементи для модального вікна
         const logo = document.getElementById('logo');
         const modal = document.getElementById('modal');
@@ -496,6 +468,3 @@ console.log("Username set:", username);
     </script>
 </body>
 </html>
-
-
-
