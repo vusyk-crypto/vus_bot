@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Про проект - VUS Project</title>
+    <style>
+        /* Ваші попередні стилі */
+
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+            color: black;
+            position: relative;
+            min-height: 100vh;
+        }
+
+        /* Стилі для верхнього меню */
+        #top-menu {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+
+        #top-menu a {
+            font-size: 18px;
+            text-decoration: none;
+            color: black;
+            padding: 0 20px;
+        }
+
+        #top-menu div {
+            flex-grow: 1;
+            text-align: center;
+        }
+
+        #top-menu strong {
+            font-size: 24px;
+        }
+
+        #top-menu span {
+            font-size: 16px;
+            color: #808080;
+        }
+
+        /* Відступ для контенту, щоб не перекривався верхнім меню */
+        .content {
+            padding-top: 60px; /* Висота верхнього меню */
+            padding-bottom: 80px; /* Висота нижнього меню */
+        }
+
+        /* Стилі для логотипу */
+        #logo-container {
+            width: 168px;
+            height: 168px;
+            margin: 20px auto 10px auto;
+        }
+
+        #logo {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        /* Стилі для блоку з текстом про проект */
+        #about-text {
+            max-width: 90%;
+            margin: 0 auto;
+            text-align: left;
+            font-size: 18px;
+            color: #333;
+            opacity: 0;
+            animation: fadeIn 2s forwards;
+        }
+
+        #about-text p {
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        #about-text ul {
+            margin-left: 20px;
+            margin-bottom: 20px;
+        }
+
+        #about-text li {
+            margin-bottom: 10px;
+        }
+
+        #about-text em {
+            font-style: italic;
+            color: #555;
+        }
+
+        /* Анімація поступового проявлення */
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Стилі для нижнього меню */
+        nav {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: #ffffff;
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: black;
+            font-size: 18px;
+            display: block;
+        }
+
+        nav a.active {
+            color: #007bff;
+        }
+
+        nav a.active img {
+            filter: invert(35%) sepia(100%) saturate(600%) hue-rotate(180deg) brightness(95%) contrast(85%);
+        }
+		/* Стиль для активної кнопки у верхньому меню */
+#top-menu a.active {
+    background-color: #e0e0e0;
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+}
+    </style>
+</head>
+<body>
+    <!-- Верхнє меню -->
+    <div id="top-menu">
+    <a href="#" id="close-btn" style="text-decoration: none; text-align: center;">
+        <img src="closed.png" alt="Закрити" style="width: 24px; height: 24px;">
+    </a>
+    <a href="about.html" class="active" style="text-decoration: none; flex-grow: 1; text-align: center;">
+        <strong style="font-size: 24px; color: black;">VUS</strong>
+        <br>
+        <span style="font-size: 16px; color: #808080;">Про проєкт</span>
+    </a>
+    <a href="#" style="text-decoration: none; text-align: center;">
+        <img src="three-dots.png" alt="Меню" style="width: 24px; height: 24px;">
+    </a>
+</div>
+
+
+    <div class="content">
+        <div id="logo-container">
+            <img id="logo" src="vus.png" alt="VUS Logo">
+        </div>
+
+        <div id="about-text">
+            <!-- Ваш текст буде тут -->
+            <p>VUSCoin – це спортивний мем-коїн, який стає основою для створення цілої спортивної екосистеми. Вона вирішуватиме всі основні питання, пов'язані зі спортом. Монету створено ентузіастами, які захоплюються спортом, криптовалютами та сучасними цифровими інноваціями.</p>
+
+            <p>У цьому міні-додатку Telegram незабаром будуть доступні наступні функції:</p>
+
+            <ul>
+                <li>Спортивні новини (за найпопулярнішими напрямками).</li>
+                <li>Цікаві факти з біографій найвідоміших спортсменів та історії про них.</li>
+                <li>Спортивні квести з можливістю виграти додаткові монети проекту.</li>
+                <li>Онлайн-турніри з кіберспорту.</li>
+                <li>Тренувальні відеоуроки від відомих спортсменів, які допоможуть вам підтримувати хорошу фізичну форму.</li>
+                <li>Поради від дієтологів та тренерів.</li>
+                <li>Унікальні NFT, які будуть цікаві не лише спортивній спільноті, але й усім, хто цікавиться спортом (а це близько 2 мільярдів людей).</li>
+                <li>Можливість отримати або купити токени VUSCoin за виконання простих завдань у міні-додатку.</li>
+            </ul>
+
+            <p>Ми створюємо велику спільноту для активних крипто-спортсменів, які прагнуть досягати успіху, досягати своїх цілей та брати від життя максимум. Пам'ятай: найбільший прибуток отримує той, хто входить у проект на ранніх стадіях і займає активну позицію в його розвитку.</p>
+
+            <p><em>P.S. Очікуйте ще більше крутих функцій! Будуть колаборації з відомими зірками спорту та безліч бонусів. Приєднуйся!</em></p>
+        </div>
+    </div>
+
+    <nav>
+        <a href="index.html">
+            <img src="home.png" alt="Home" style="width: 24px; height: 24px;">
+            <br>
+            Home
+        </a>
+        <a href="tasks.html">
+            <img src="tasks.png" alt="Tasks" style="width: 24px; height: 24px;">
+            <br>
+            Tasks
+        </a>
+        <a href="friends.html">
+            <img src="friends.png" alt="Friends" style="width: 24px; height: 24px;">
+            <br>
+            Friends
+        </a>
+        <a href="nft.html">
+            <img src="nft.png" alt="NFT" style="width: 24px; height: 24px;">
+            <br>
+            NFT
+        </a>
+    </nav>
+</body>
+</html>
