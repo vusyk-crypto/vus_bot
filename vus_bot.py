@@ -21,7 +21,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     formatted_message = (
         f"Привіт, *`{username}`*! "
         f"Ти готовий увійти в дружню криптоспільноту *`VUS`*? "
-        f"Тисни на кнопку <<Вперед>>"
+        f"Тисни на кнопку \\<\\<Вперед\\>\\>"
     )
 
     # Відправляємо кнопку одразу після команди /start
