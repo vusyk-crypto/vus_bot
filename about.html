@@ -18,62 +18,43 @@
         }
 
         /* Стилі для верхнього меню */
-        #top-menu {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background-color: #f0f0f0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 10px; /* Додаємо горизонтальні паддінги */
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            z-index: 1000;
-            box-sizing: border-box;
-        }
+        /* Стилі для верхнього меню */
+#top-menu {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: #f0f0f0;
+    display: flex;
+    justify-content: center; /* Центрує весь контент в меню */
+    align-items: center;
+    padding: 10px 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    box-sizing: border-box;
+}
 
-        #top-menu a {
-            text-decoration: none;
-            color: black;
-            text-align: center;
-            flex-shrink: 0;
-        }
+#top-menu a {
+    text-decoration: none;
+    color: black;
+    text-align: center;
+    padding: 5px 10px;
+}
 
-        #top-menu a#close-btn,
-        #top-menu a#menu-btn {
-            width: 24px;
-            height: 24px;
-        }
+#top-menu a.active {
+    background-color: #e0e0e0;
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+}
 
-        #top-menu a#close-btn {
-            margin-left: 5px; /* Відступ зліва від кнопки "Закрити" */
-        }
+#top-menu strong {
+    font-size: 24px;
+}
 
-        #top-menu a#menu-btn {
-            margin-right: 5px; /* Відступ справа від іконки меню */
-        }
+#top-menu span {
+    font-size: 16px;
+    color: #808080;
+}
 
-        #top-menu a#close-btn img,
-        #top-menu a#menu-btn img {
-            width: 100%;
-            height: auto;
-        }
-
-        #top-menu a.active {
-            padding: 5px 10px;
-            background-color: #e0e0e0;
-            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.2);
-            border-radius: 5px;
-        }
-
-        #top-menu strong {
-            font-size: 24px;
-        }
-
-        #top-menu span {
-            font-size: 16px;
-            color: #808080;
-        }
 
         #top-menu a.active strong {
             color: #007bff;
