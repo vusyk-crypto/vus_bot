@@ -2,6 +2,7 @@ import logging
 import sys
 from telegram import Update, ReplyKeyboardMarkup, KeyboardButton, WebAppInfo, InputFile
 from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes
+import os
 
 logging.basicConfig(level=logging.DEBUG,
                     format='%(asctime)s - %(name)s - %(message)s',
@@ -35,9 +36,13 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 
 # Обробник для відправки фото
 async def send_image(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    # Відправляємо зображення
-    photo_path = 'vus.png'  # Вкажи шлях до своєї картинки
-    await context.bot.send_photo(chat_id=update.message.chat_id, photo=InputFile(photo_path))
+    # Вказуємо абсолютний шлях до зображення
+    photo_path = os.path.join(os.path.dirname(__file__), 'vus.png')
+    
+    try:
+        await context.bot.send_photo(chat_id=update.message.chat_id, photo=InputFile(photo_path))
+    except Exception as e:
+        logging.error(f"Помилка при завантаженні зображення: {e}")
 
 if __name__ == '__main__':
     token = "7230512720:AAG0mtv0oUBi9HAh-kCUex9YF-JNmkQXSxQ"  # Замініть на ваш реальний токен
