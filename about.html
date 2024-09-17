@@ -18,62 +18,73 @@
         }
 
         /* Стилі для верхнього меню */
-        #top-menu {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background-color: #f0f0f0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 0;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            z-index: 1000;
-            box-sizing: border-box;
-        }
 
-        #top-menu a {
-            text-decoration: none;
-            color: black;
-            text-align: center;
-            flex-shrink: 0;
-        }
+#top-menu {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: #f0f0f0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 10px; /* Додаємо горизонтальні паддінги */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    box-sizing: border-box;
+}
 
-        #top-menu a#close-btn,
-        #top-menu a#menu-btn {
-            width: 24px;
-            height: 24px;
-        }
+#top-menu a {
+    text-decoration: none;
+    color: black;
+    text-align: center;
+    flex-shrink: 0;
+}
 
-        #top-menu a#close-btn img,
-        #top-menu a#menu-btn img {
-            width: 100%;
-            height: auto;
-        }
+#top-menu a#close-btn,
+#top-menu a#menu-btn {
+    width: 24px;
+    height: 24px;
+}
 
-        #top-menu a.active {
-            padding: 5px 10px;
-            background-color: #e0e0e0;
-            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.2);
-            border-radius: 5px;
-        }
+/* Додаємо відступи до кнопок */
+#top-menu a#close-btn {
+    margin-left: 5px; /* Відступ зліва від кнопки "Закрити" */
+}
 
-        #top-menu strong {
-            font-size: 24px;
-        }
+#top-menu a#menu-btn {
+    margin-right: 5px; /* Відступ справа від іконки меню */
+}
 
-        #top-menu span {
-            font-size: 16px;
-            color: #808080;
-        }
+#top-menu a#close-btn img,
+#top-menu a#menu-btn img {
+    width: 100%;
+    height: auto;
+}
 
-        #top-menu a.active strong {
-            color: #007bff;
-        }
+#top-menu a.active {
+    padding: 5px 10px;
+    background-color: #e0e0e0;
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+}
 
-        #top-menu a.active span {
-            color: #0056b3;
-        }
+#top-menu strong {
+    font-size: 24px;
+}
+
+#top-menu span {
+    font-size: 16px;
+    color: #808080;
+}
+
+#top-menu a.active strong {
+    color: #007bff;
+}
+
+#top-menu a.active span {
+    color: #0056b3;
+}
+
 
         /* Відступ для контенту, щоб не перекривався верхнім меню */
         .content {
@@ -177,18 +188,19 @@
 <body>
     <!-- Верхнє меню -->
     <div id="top-menu">
-        <a href="#" id="close-btn">
-            <img src="closed.png" alt="Закрити">
-        </a>
-        <a href="about.html" class="active">
-            <strong>VUS</strong>
-            <br>
-            <span>Про проєкт</span>
-        </a>
-        <a href="#" id="menu-btn">
-            <img src="three-dots.png" alt="Меню">
-        </a>
-    </div>
+    <a href="#" id="close-btn">
+        <img src="closed.png" alt="Закрити">
+    </a>
+    <a href="about.html" class="active">
+        <strong>VUS</strong>
+        <br>
+        <span>Про проєкт</span>
+    </a>
+    <a href="#" id="menu-btn">
+        <img src="three-dots.png" alt="Меню">
+    </a>
+</div>
+
 
     <div class="content">
         <div id="logo-container">
