@@ -3,10 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Про проект - VUS Project</title>
+    <title>Про проєкт - VUS Project</title>
     <style>
-        /* Ваші попередні стилі */
-
+        /* Стилі для всього документа */
         body {
             font-family: Arial, sans-serif;
             text-align: center;
@@ -30,18 +29,33 @@
             padding: 10px 0;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             z-index: 1000;
+            box-sizing: border-box;
         }
 
         #top-menu a {
-            font-size: 18px;
             text-decoration: none;
             color: black;
-            padding: 0 20px;
+            text-align: center;
+            flex-shrink: 0;
         }
 
-        #top-menu div {
-            flex-grow: 1;
-            text-align: center;
+        #top-menu a#close-btn,
+        #top-menu a#menu-btn {
+            width: 24px;
+            height: 24px;
+        }
+
+        #top-menu a#close-btn img,
+        #top-menu a#menu-btn img {
+            width: 100%;
+            height: auto;
+        }
+
+        #top-menu a.active {
+            padding: 5px 10px;
+            background-color: #e0e0e0;
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
         }
 
         #top-menu strong {
@@ -51,6 +65,14 @@
         #top-menu span {
             font-size: 16px;
             color: #808080;
+        }
+
+        #top-menu a.active strong {
+            color: #007bff;
+        }
+
+        #top-menu a.active span {
+            color: #0056b3;
         }
 
         /* Відступ для контенту, щоб не перекривався верхнім меню */
@@ -72,7 +94,7 @@
             object-fit: contain;
         }
 
-        /* Стилі для блоку з текстом про проект */
+        /* Стилі для блоку з текстом про проєкт */
         #about-text {
             max-width: 90%;
             margin: 0 auto;
@@ -127,6 +149,7 @@
             color: black;
             font-size: 18px;
             display: block;
+            text-align: center;
         }
 
         nav a.active {
@@ -136,30 +159,36 @@
         nav a.active img {
             filter: invert(35%) sepia(100%) saturate(600%) hue-rotate(180deg) brightness(95%) contrast(85%);
         }
-		/* Стиль для активної кнопки у верхньому меню */
-#top-menu a.active {
-    background-color: #e0e0e0;
-    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.2);
-    border-radius: 5px;
-}
+
+        /* Адаптивні стилі для маленьких екранів */
+        @media (max-width: 320px) {
+            #top-menu strong {
+                font-size: 18px;
+            }
+            #top-menu span {
+                font-size: 14px;
+            }
+            #top-menu a.active {
+                padding: 3px 5px;
+            }
+        }
     </style>
 </head>
 <body>
     <!-- Верхнє меню -->
     <div id="top-menu">
-    <a href="#" id="close-btn" style="text-decoration: none; text-align: center;">
-        <img src="closed.png" alt="Закрити" style="width: 24px; height: 24px;">
-    </a>
-    <a href="about.html" class="active" style="text-decoration: none; flex-grow: 1; text-align: center;">
-        <strong style="font-size: 24px; color: black;">VUS</strong>
-        <br>
-        <span style="font-size: 16px; color: #808080;">Про проєкт</span>
-    </a>
-    <a href="#" style="text-decoration: none; text-align: center;">
-        <img src="three-dots.png" alt="Меню" style="width: 24px; height: 24px;">
-    </a>
-</div>
-
+        <a href="#" id="close-btn">
+            <img src="closed.png" alt="Закрити">
+        </a>
+        <a href="about.html" class="active">
+            <strong>VUS</strong>
+            <br>
+            <span>Про проєкт</span>
+        </a>
+        <a href="#" id="menu-btn">
+            <img src="three-dots.png" alt="Меню">
+        </a>
+    </div>
 
     <div class="content">
         <div id="logo-container">
@@ -167,7 +196,6 @@
         </div>
 
         <div id="about-text">
-            <!-- Ваш текст буде тут -->
             <p>VUSCoin – це спортивний мем-коїн, який стає основою для створення цілої спортивної екосистеми. Вона вирішуватиме всі основні питання, пов'язані зі спортом. Монету створено ентузіастами, які захоплюються спортом, криптовалютами та сучасними цифровими інноваціями.</p>
 
             <p>У цьому міні-додатку Telegram незабаром будуть доступні наступні функції:</p>
@@ -175,7 +203,7 @@
             <ul>
                 <li>Спортивні новини (за найпопулярнішими напрямками).</li>
                 <li>Цікаві факти з біографій найвідоміших спортсменів та історії про них.</li>
-                <li>Спортивні квести з можливістю виграти додаткові монети проекту.</li>
+                <li>Спортивні квести з можливістю виграти додаткові монети проєкту.</li>
                 <li>Онлайн-турніри з кіберспорту.</li>
                 <li>Тренувальні відеоуроки від відомих спортсменів, які допоможуть вам підтримувати хорошу фізичну форму.</li>
                 <li>Поради від дієтологів та тренерів.</li>
@@ -183,12 +211,13 @@
                 <li>Можливість отримати або купити токени VUSCoin за виконання простих завдань у міні-додатку.</li>
             </ul>
 
-            <p>Ми створюємо велику спільноту для активних крипто-спортсменів, які прагнуть досягати успіху, досягати своїх цілей та брати від життя максимум. Пам'ятай: найбільший прибуток отримує той, хто входить у проект на ранніх стадіях і займає активну позицію в його розвитку.</p>
+            <p>Ми створюємо велику спільноту для активних крипто-спортсменів, які прагнуть досягати успіху, досягати своїх цілей та брати від життя максимум. Пам'ятай: найбільший прибуток отримує той, хто входить у проєкт на ранніх стадіях і займає активну позицію в його розвитку.</p>
 
             <p><em>P.S. Очікуйте ще більше крутих функцій! Будуть колаборації з відомими зірками спорту та безліч бонусів. Приєднуйся!</em></p>
         </div>
     </div>
 
+    <!-- Нижнє меню -->
     <nav>
         <a href="index.html">
             <img src="home.png" alt="Home" style="width: 24px; height: 24px;">
@@ -211,72 +240,72 @@
             NFT
         </a>
     </nav>
-	
-	<!-- Ваш HTML код кнопки закриття -->
-<a href="#" id="close-btn" style="text-decoration: none; text-align: center;">
-    <img src="closed.png" alt="Закрити" style="width: 24px; height: 24px;">
-</a>
 
-<!-- Ваш JavaScript код -->
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-    let tg = window.Telegram?.WebApp;
+    <!-- JavaScript код -->
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        let tg;
 
-    function waitForWebApp() {
-        return new Promise((resolve, reject) => {
-            if (window.Telegram?.WebApp) {
-                resolve(window.Telegram.WebApp);
-            } else {
-                const checkInterval = setInterval(() => {
-                    if (window.Telegram?.WebApp) {
-                        clearInterval(checkInterval);
-                        resolve(window.Telegram.WebApp);
-                    }
-                }, 100);
-
-                setTimeout(() => {
-                    clearInterval(checkInterval);
-                    reject(new Error("WebApp не завантажився"));
-                }, 5000);
-            }
-        });
-    }
-
-    waitForWebApp().then((webApp) => {
-        console.log("WebApp initialized:", webApp);
-        tg = webApp;
-
-        // Реєструємо обробник події кнопки закриття після ініціалізації tg
-        document.getElementById('close-btn').addEventListener('click', function() {
-            console.log("Close button clicked");
-            console.log("WebApp object:", tg);
-            if (tg?.close) {
-                console.log("Attempting to close WebApp");
-                tg.close();
-            } else {
-                console.log('WebApp.close is not available');
-                if (tg?.BackButton) {
-                    tg.BackButton.show();
-                    tg.BackButton.onClick(() => {
-                        console.log("Back button pressed");
-                        tg.close();
-                    });
+        function waitForWebApp() {
+            return new Promise((resolve, reject) => {
+                if (window.Telegram?.WebApp) {
+                    resolve(window.Telegram.WebApp);
                 } else {
-                    console.log("BackButton is not available");
+                    const checkInterval = setInterval(() => {
+                        if (window.Telegram?.WebApp) {
+                            clearInterval(checkInterval);
+                            resolve(window.Telegram.WebApp);
+                        }
+                    }, 100);
+
+                    setTimeout(() => {
+                        clearInterval(checkInterval);
+                        reject(new Error("WebApp не завантажився"));
+                    }, 5000);
                 }
+            });
+        }
+
+        waitForWebApp().then((webApp) => {
+            console.log("WebApp initialized:", webApp);
+            tg = webApp;
+
+            // Реєструємо обробник події кнопки закриття після ініціалізації tg
+            const closeBtn = document.getElementById('close-btn');
+            if (closeBtn) {
+                closeBtn.addEventListener('click', function(event) {
+                    event.preventDefault(); // Запобігаємо переходу за посиланням
+                    console.log("Close button clicked");
+                    console.log("WebApp object:", tg);
+                    if (tg?.close) {
+                        console.log("Attempting to close WebApp");
+                        tg.close();
+                    } else {
+                        console.log('WebApp.close is not available');
+                        if (tg?.BackButton) {
+                            tg.BackButton.show();
+                            tg.BackButton.onClick(() => {
+                                console.log("Back button pressed");
+                                tg.close();
+                            });
+                        } else {
+                            console.log("BackButton is not available");
+                        }
+                    }
+                });
+            } else {
+                console.warn("Element with id 'close-btn' not found.");
             }
+
+            // Ваш інший код...
+
+        }).catch((error) => {
+            console.error("Error initializing WebApp:", error);
+            // Обробка помилки...
         });
 
         // Ваш інший код...
-    }).catch((error) => {
-        console.error("Error initializing WebApp:", error);
-        // Обробка помилки...
     });
-
-    // Ваш інший код...
-});
-</script>
-
-	
+    </script>
 </body>
 </html>
