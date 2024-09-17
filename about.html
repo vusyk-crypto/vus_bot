@@ -18,73 +18,70 @@
         }
 
         /* Стилі для верхнього меню */
+        #top-menu {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 10px; /* Додаємо горизонтальні паддінги */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            box-sizing: border-box;
+        }
 
-#top-menu {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    background-color: #f0f0f0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 10px; /* Додаємо горизонтальні паддінги */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
-    box-sizing: border-box;
-}
+        #top-menu a {
+            text-decoration: none;
+            color: black;
+            text-align: center;
+            flex-shrink: 0;
+        }
 
-#top-menu a {
-    text-decoration: none;
-    color: black;
-    text-align: center;
-    flex-shrink: 0;
-}
+        #top-menu a#close-btn,
+        #top-menu a#menu-btn {
+            width: 24px;
+            height: 24px;
+        }
 
-#top-menu a#close-btn,
-#top-menu a#menu-btn {
-    width: 24px;
-    height: 24px;
-}
+        #top-menu a#close-btn {
+            margin-left: 5px; /* Відступ зліва від кнопки "Закрити" */
+        }
 
-/* Додаємо відступи до кнопок */
-#top-menu a#close-btn {
-    margin-left: 5px; /* Відступ зліва від кнопки "Закрити" */
-}
+        #top-menu a#menu-btn {
+            margin-right: 5px; /* Відступ справа від іконки меню */
+        }
 
-#top-menu a#menu-btn {
-    margin-right: 5px; /* Відступ справа від іконки меню */
-}
+        #top-menu a#close-btn img,
+        #top-menu a#menu-btn img {
+            width: 100%;
+            height: auto;
+        }
 
-#top-menu a#close-btn img,
-#top-menu a#menu-btn img {
-    width: 100%;
-    height: auto;
-}
+        #top-menu a.active {
+            padding: 5px 10px;
+            background-color: #e0e0e0;
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+        }
 
-#top-menu a.active {
-    padding: 5px 10px;
-    background-color: #e0e0e0;
-    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.2);
-    border-radius: 5px;
-}
+        #top-menu strong {
+            font-size: 24px;
+        }
 
-#top-menu strong {
-    font-size: 24px;
-}
+        #top-menu span {
+            font-size: 16px;
+            color: #808080;
+        }
 
-#top-menu span {
-    font-size: 16px;
-    color: #808080;
-}
+        #top-menu a.active strong {
+            color: #007bff;
+        }
 
-#top-menu a.active strong {
-    color: #007bff;
-}
-
-#top-menu a.active span {
-    color: #0056b3;
-}
-
+        #top-menu a.active span {
+            color: #0056b3;
+        }
 
         /* Відступ для контенту, щоб не перекривався верхнім меню */
         .content {
@@ -103,6 +100,7 @@
             width: 100%;
             height: 100%;
             object-fit: contain;
+            cursor: pointer;
         }
 
         /* Стилі для блоку з текстом про проєкт */
@@ -183,31 +181,122 @@
                 padding: 3px 5px;
             }
         }
+
+        /* Стилі для модального вікна */
+        #modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+        }
+
+        #modal-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            font-size: 24px;
+            color: black;
+            text-align: center;
+            text-transform: uppercase;
+            max-width: 80%;
+            box-sizing: border-box;
+        }
+
+        #modal-content p {
+            margin-bottom: 20px;
+        }
+
+        #modal-button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        #modal-button:hover {
+            background-color: #0056b3;
+        }
+
+        .blur {
+            filter: blur(5px);
+            pointer-events: none;
+        }
+
+        /* Рука для свапа */
+        #hand-container {
+            position: fixed;
+            top: 150px;
+            left: 20px;
+            z-index: 9999;
+            opacity: 0.7;
+        }
+
+        #hand {
+            width: 50px;
+            height: auto;
+            animation: moveUpDown 1.5s ease-in-out infinite;
+        }
+
+        @keyframes moveUpDown {
+            0% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-15px);
+            }
+            100% {
+                transform: translateY(0);
+            }
+        }
+
+        .hidden {
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+            pointer-events: none;
+            display: none;
+        }
+
     </style>
 </head>
 <body>
     <!-- Верхнє меню -->
     <div id="top-menu">
-    <a href="#" id="close-btn">
-        <img src="closed.png" alt="Закрити">
-    </a>
-    <a href="about.html" class="active">
-        <strong>VUS</strong>
-        <br>
-        <span>Про проєкт</span>
-    </a>
-    <a href="#" id="menu-btn">
-        <img src="three-dots.png" alt="Меню">
-    </a>
-</div>
-
+        <a href="#" id="close-btn">
+            <img src="closed.png" alt="Закрити">
+        </a>
+        <a href="about.html" class="active">
+            <strong>VUS</strong>
+            <br>
+            <span>Про проєкт</span>
+        </a>
+        <a href="#" id="menu-btn">
+            <img src="three-dots.png" alt="Меню">
+        </a>
+    </div>
 
     <div class="content">
         <div id="logo-container">
             <img id="logo" src="vus.png" alt="VUS Logo">
         </div>
 
+        <!-- Рука для свапа -->
+        <div id="hand-container" class="hidden">
+            <img id="hand" src="hand-arrow.png" alt="Swipe up">
+        </div>
+
+        <div id="username"></div>
+
         <div id="about-text">
+            <!-- Ваш текст буде тут -->
             <p>VUSCoin – це спортивний мем-коїн, який стає основою для створення цілої спортивної екосистеми. Вона вирішуватиме всі основні питання, пов'язані зі спортом. Монету створено ентузіастами, які захоплюються спортом, криптовалютами та сучасними цифровими інноваціями.</p>
 
             <p>У цьому міні-додатку Telegram незабаром будуть доступні наступні функції:</p>
@@ -253,9 +342,44 @@
         </a>
     </nav>
 
+    <!-- Модальне вікно -->
+    <div id="modal" class="hidden">
+        <div id="modal-content">
+            <p>ЩОБ БУТИ КРИПТОСПОРТСМЕНОМ ТРЕБА ЛИШЕ ЗАХОТІТИ</p>
+            <button id="modal-button">Повернутися</button>
+        </div>
+    </div>
+
     <!-- JavaScript код -->
     <script>
     document.addEventListener("DOMContentLoaded", function() {
+
+        // Функція для отримання параметра з URL
+        function getUsernameFromUrl() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get('username');
+        }
+
+        // Отримуємо ім'я користувача з URL або `localStorage`
+        let username = getUsernameFromUrl();
+
+        if (username) {
+            // Зберігаємо ім'я користувача в `localStorage`
+            localStorage.setItem('username', username);
+        } else {
+            // Якщо немає в URL, намагаємося отримати з `localStorage`
+            username = localStorage.getItem('username') || 'Гість';
+        }
+
+        // Відображаємо ім'я користувача на сторінці
+        const usernameElement = document.getElementById('username');
+        if (usernameElement) {
+            usernameElement.textContent = username;
+            console.log("Username set:", username);
+        } else {
+            console.warn("Element with id 'username' not found.");
+        }
+
         let tg;
 
         function waitForWebApp() {
@@ -278,11 +402,61 @@
             });
         }
 
+        const mainContent = document.querySelector('.content');
+        const hand = document.getElementById('hand-container');
+
+        function hideHand() {
+            if (hand) {
+                hand.classList.add('hidden');
+                console.log("Hand hidden");
+            }
+        }
+
+        function showHand() {
+            if (hand) {
+                hand.classList.remove('hidden');
+                console.log("Hand shown");
+            }
+        }
+
+        function checkWebAppState(webApp) {
+            console.log("Checking WebApp state. isExpanded:", webApp.isExpanded);
+
+            const viewportHeight = window.innerHeight;
+            const documentHeight = document.documentElement.scrollHeight;
+            console.log("Viewport height:", viewportHeight, "Document height:", documentHeight);
+
+            setTimeout(() => {
+                console.log("Delayed check. isExpanded:", webApp.isExpanded);
+                if (webApp.isExpanded || viewportHeight >= documentHeight - 10) {
+                    hideHand();
+                } else {
+                    showHand();
+                }
+            }, 500);
+        }
+
+        const observer = new MutationObserver(() => {
+            if (tg) checkWebAppState(tg);
+        });
+
         waitForWebApp().then((webApp) => {
             console.log("WebApp initialized:", webApp);
             tg = webApp;
+            checkWebAppState(webApp);
 
-            // Реєструємо обробник події кнопки закриття після ініціалізації tg
+            webApp.onEvent('viewportChanged', () => {
+                console.log("Viewport changed. New isExpanded state:", webApp.isExpanded);
+                checkWebAppState(webApp);
+            });
+
+            observer.observe(document.body, {
+                attributes: true,
+                childList: true,
+                subtree: true
+            });
+
+            // Реєструємо обробник події кнопки закриття
             const closeBtn = document.getElementById('close-btn');
             if (closeBtn) {
                 closeBtn.addEventListener('click', function(event) {
@@ -293,7 +467,7 @@
                         console.log("Attempting to close WebApp");
                         tg.close();
                     } else {
-                        console.log('WebApp.close is not available');
+                        console.log('tg.close is not available');
                         if (tg?.BackButton) {
                             tg.BackButton.show();
                             tg.BackButton.onClick(() => {
@@ -301,7 +475,7 @@
                                 tg.close();
                             });
                         } else {
-                            console.log("BackButton is not available");
+                            console.log("tg.BackButton is not available");
                         }
                     }
                 });
@@ -309,14 +483,45 @@
                 console.warn("Element with id 'close-btn' not found.");
             }
 
-            // Ваш інший код...
-
         }).catch((error) => {
             console.error("Error initializing WebApp:", error);
-            // Обробка помилки...
+            showHand(); // Показуємо руку, якщо WebApp не завантажився
         });
 
-        // Ваш інший код...
+        // Отримуємо елементи для модального вікна
+        const logo = document.getElementById('logo');
+        const modal = document.getElementById('modal');
+        const modalButton = document.getElementById('modal-button');
+        const contentToBlur = document.querySelector('.content');
+
+        // Додаємо обробник події для кліку на логотип
+        if (logo && modal && contentToBlur) {
+            logo.addEventListener('click', function() {
+                // Додаємо клас для блюру основного контенту
+                contentToBlur.classList.add('blur');
+                // Показуємо модальне вікно
+                modal.classList.remove('hidden');
+            });
+
+            // Додаємо обробник події для кліку на кнопку "Повернутися"
+            modalButton.addEventListener('click', function(event) {
+                event.stopPropagation();
+                // Прибираємо клас блюру
+                contentToBlur.classList.remove('blur');
+                // Ховаємо модальне вікно
+                modal.classList.add('hidden');
+            });
+
+            // Додаємо обробник події для кліку поза модальним контентом, щоб нічого не відбувалося
+            modal.addEventListener('click', function(event) {
+                if (event.target === modal) {
+                    // Нічого не робимо або можна додати код, якщо потрібно
+                }
+            });
+        } else {
+            console.warn("One or more elements for the modal window are missing.");
+        }
+
     });
     </script>
 </body>
