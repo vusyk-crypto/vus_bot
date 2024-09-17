@@ -17,10 +17,18 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     button = KeyboardButton(text="Вперед", web_app=WebAppInfo(url=web_app_url))
     keyboard = ReplyKeyboardMarkup([[button]], resize_keyboard=True, one_time_keyboard=True)
 
+    # Форматуємо ім'я користувача та VUS, роблячи їх жирними та моноширинними
+    formatted_message = (
+        f"Привіт, *`{username}`*! "
+        f"Ти готовий увійти в дружню криптоспільноту *`VUS`*? "
+        f"Тисни на кнопку <<Вперед>>"
+    )
+
     # Відправляємо кнопку одразу після команди /start
     await update.message.reply_text(
-        f"Привіт, {username}! Ти готовий увійти в дружню криптоспільноту VUS? Тисни на кнопку <<Вперед>>",
-        reply_markup=keyboard
+        formatted_message,
+        reply_markup=keyboard,
+        parse_mode="MarkdownV2"  # Використовуємо MarkdownV2 для форматування
     )
 
 if __name__ == '__main__':
