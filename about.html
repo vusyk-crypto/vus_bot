@@ -19,39 +19,51 @@
         }
 
         /* Стилі для верхнього меню */
-        #top-menu {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background-color: #f0f0f0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 0;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            z-index: 1000;
-        }
+        /* Стилі для верхнього меню */
+#top-menu {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: #f0f0f0;
+    display: flex;
+    justify-content: space-between; /* Розподіляє елементи з простором між ними */
+    align-items: center;
+    padding: 10px 20px; /* Додаємо горизонтальний паддінг */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
 
-        #top-menu a {
-            font-size: 18px;
-            text-decoration: none;
-            color: black;
-            padding: 0 20px;
-        }
+#top-menu a {
+    font-size: 18px;
+    text-decoration: none;
+    color: black;
+    /* Видаляємо паддінг, якщо він був */
+}
 
-        #top-menu div {
-            flex-grow: 1;
-            text-align: center;
-        }
+#top-menu a#close-btn,
+#top-menu a#menu-btn {
+    width: 24px;
+    height: 24px;
+}
 
-        #top-menu strong {
-            font-size: 24px;
-        }
+#top-menu a#close-btn img,
+#top-menu a#menu-btn img {
+    width: 24px;
+    height: 24px;
+}
 
-        #top-menu span {
-            font-size: 16px;
-            color: #808080;
-        }
+#top-menu a.active {
+    padding: 5px 10px; /* Додаємо паддінг до середньої кнопки */
+}
+
+#top-menu strong {
+    font-size: 24px;
+}
+
+#top-menu span {
+    font-size: 16px;
+    color: #808080;
+}
 
         /* Відступ для контенту, щоб не перекривався верхнім меню */
         .content {
@@ -150,7 +162,7 @@
     <a href="#" id="close-btn" style="text-decoration: none; text-align: center;">
         <img src="closed.png" alt="Закрити" style="width: 24px; height: 24px;">
     </a>
-    <a href="about.html" class="active" style="text-decoration: none; flex-grow: 1; text-align: center;">
+    <a href="about.html" class="active" style="text-decoration: none; text-align: center;">
         <strong style="font-size: 24px; color: black;">VUS</strong>
         <br>
         <span style="font-size: 16px; color: #808080;">Про проєкт</span>
